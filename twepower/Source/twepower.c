@@ -12,8 +12,9 @@
 
 #include "utils.h"
 
-#include "PingPong.h"
+#include "twepower.h"
 #include "config.h"
+#include "common.h"
 #include "Version.h"
 
 // DEBUG options
@@ -73,6 +74,10 @@ static void vInitHardware(int f_warm_start);
 
 void vSerialInit(uint32 u32Baud, tsUartOpt *pUartOpt);
 static void vHandleSerialInput(void);
+
+static void vBroadcastStatus(void);
+static void vSleepSec(int sec);
+static void vProcessIncomingData(tsRxDataApp *pRx);
 
 /****************************************************************************/
 /***        Exported Variables                                            ***/
@@ -197,47 +202,11 @@ void cbToCoNet_vMain(void)
 	/* handle uart input */
 	vHandleSerialInput();
 
-	//
 	sAppData.u32Counter ++;
-
 	if (sAppData.u32Counter == 1) {
-		tsTxDataApp tsTx;
-
-		vfPrintf(&sSerStream, LB "Send PING" LB);
-		SERIAL_vFlush(sSerStream.u8Device);
-
-		memset(&tsTx, 0, sizeof(tsTxDataApp));
-
-		sAppData.u32Seq = ToCoNet_u32GetRand();
-
-		tsTx.u32SrcAddr = ToCoNet_u32GetSerial(); // 自身のアドレス
-		tsTx.u32DstAddr = 0xFFFF; // ブロードキャスト
-
-		tsTx.bAckReq = FALSE;
-		tsTx.u8Retry = 0x82; // ブロードキャストで都合３回送る
-		tsTx.u8CbId = sAppData.u32Seq & 0xFF;
-		tsTx.u8Seq = sAppData.u32Seq & 0xFF;
-		tsTx.u8Cmd = TOCONET_PACKET_CMD_APP_DATA;
-
-		// SPRINTF でメッセージを作成
-		SPRINTF_vRewind();
-		vfPrintf(SPRINTF_Stream, "PING: %08X", ToCoNet_u32GetSerial());
-		memcpy(tsTx.auData, SPRINTF_pu8GetBuff(), SPRINTF_u16Length());
-		tsTx.u8Len = SPRINTF_u16Length();
-
-		// 送信
-		ToCoNet_bMacTxReq(&tsTx);
+		vBroadcastStatus();
 	} else if (sAppData.u32Counter > 1000) {
-		vfPrintf(&sSerStream, "now sleeping in 10 seconds." LB);
-		SERIAL_vFlush(sSerStream.u8Device); // flushing
-
-		vAHI_UartDisable(sSerStream.u8Device);
-		vAHI_DioSetDirection(u32DioPortWakeUp, 0); // set as input
-		(void)u32AHI_DioInterruptStatus(); // clear interrupt register
-		vAHI_DioWakeEnable(u32DioPortWakeUp, 0); // also use as DIO WAKE SOURCE
-		vAHI_DioWakeEdge(u32DioPortWakeUp, 0); // 割り込みエッジ（立上がりに設定）
-
-		ToCoNet_vSleep(E_AHI_WAKE_TIMER_0, 10000, FALSE, TRUE); // RAM ON SLEEP USING WK0
+		vSleepSec(10);
 	}
 }
 
@@ -297,34 +266,7 @@ void cbToCoNet_vRxEvent(tsRxDataApp *pRx) {
 		&& !memcmp(pRx->auData, "PING:", 5) // パケットの先頭は PING: の場合
 	) {
 		u16seqPrev = pRx->u8Seq;
-
-		// transmit Ack back
-		tsTxDataApp tsTx;
-		memset(&tsTx, 0, sizeof(tsTxDataApp));
-
-		tsTx.u32SrcAddr = ToCoNet_u32GetSerial(); //
-		tsTx.u32DstAddr = pRx->u32SrcAddr; // 送り返す
-		tsTx.u32DstAddr = 0xFFFF; // ブロードキャスト
-
-		tsTx.bAckReq = TRUE;
-		tsTx.u8Retry = 0x81;
-		tsTx.u8CbId = pRx->u8Seq;
-		tsTx.u8Seq = pRx->u8Seq;
-		tsTx.u8Len = pRx->u8Len;
-		tsTx.u8Cmd = TOCONET_PACKET_CMD_APP_DATA;
-
-		if (tsTx.u8Len > 0) {
-			memcpy(tsTx.auData, pRx->auData, tsTx.u8Len);
-		}
-		tsTx.auData[1] = 'O'; // メッセージを PONG に書き換える
-
-		ToCoNet_bMacTxReq(&tsTx);
-
-		// turn on Led a while
-		sAppData.u32LedCt = u32TickCount_ms;
-
-		// ＵＡＲＴに出力
-		vfPrintf(&sSerStream, LB "Fire PONG Message to %08x" LB, pRx->u32SrcAddr);
+		vProcessIncomingData(pRx);
 	} else if (!memcmp(pRx->auData, "PONG:", 5)) {
 		// ＵＡＲＴに出力
 		vfPrintf(&sSerStream, LB "PONG Message from %08x" LB, pRx->u32SrcAddr);
@@ -424,30 +366,21 @@ uint8 cbToCoNet_u8HwInt(uint32 u32DeviceId, uint32 u32ItemBitmap) {
 static void vInitHardware(int f_warm_start)
 {
 	// Serial Initialize
-#if 0
-	// UART の細かい設定テスト
-	tsUartOpt sUartOpt;
-	memset(&sUartOpt, 0, sizeof(tsUartOpt));
-	sUartOpt.bHwFlowEnabled = FALSE;
-	sUartOpt.bParityEnabled = E_AHI_UART_PARITY_ENABLE;
-	sUartOpt.u8ParityType = E_AHI_UART_EVEN_PARITY;
-	sUartOpt.u8StopBit = E_AHI_UART_2_STOP_BITS;
-	sUartOpt.u8WordLen = 7;
-
-	vSerialInit(UART_BAUD, &sUartOpt);
-#else
 	vSerialInit(UART_BAUD, NULL);
-#endif
-
 
 	ToCoNet_vDebugInit(&sSerStream);
 	ToCoNet_vDebugLevel(0);
 
 	/// IOs
-	vPortSetLo(PORT_KIT_LED1);
-	vPortSetHi(PORT_KIT_LED2);
-	vPortAsOutput(PORT_KIT_LED1);
-	vPortAsOutput(PORT_KIT_LED2);
+	vPortDisablePullup(PORT_RESET);
+	vPortDisablePullup(PORT_SET);
+	vPortDisablePullup(PORT_LED);
+	vPortSetHi(PORT_RESET);
+	vPortSetHi(PORT_SET);
+	vPortSetHi(PORT_LED);
+	vPortAsOutput(PORT_RESET);
+	vPortAsOutput(PORT_SET);
+	vPortAsOutput(PORT_LED);
 }
 
 /****************************************************************************
@@ -535,36 +468,28 @@ static void vHandleSerialInput(void)
 			}
 			break;
 
-		case 's': case 'S':
-			// スリープのテストコード
-			_C {
-				// print message.
-				sAppData.u8SleepCt++;
+		case 's':
+			vPortSetHi(PORT_SET);
+			break;
 
-				// stop interrupt source, if interrupt source is still running.
-				;
+		case 'S':
+			vPortSetLo(PORT_SET);
+			break;
 
-				vfPrintf(&sSerStream, "now sleeping" LB);
-				SERIAL_vFlush(sSerStream.u8Device); // flushing
+		case 'r':
+			vPortSetHi(PORT_RESET);
+			break;
 
-				if (i16Char == 's') {
-					vAHI_UartDisable(sSerStream.u8Device);
-				}
+		case 'R':
+			vPortSetLo(PORT_RESET);
+			break;
 
-				// set UART Rx port as interrupt source
-				vAHI_DioSetDirection(u32DioPortWakeUp, 0); // set as input
+		case 'l':
+			vPortSetHi(PORT_LED);
+			break;
 
-				(void)u32AHI_DioInterruptStatus(); // clear interrupt register
-				vAHI_DioWakeEnable(u32DioPortWakeUp, 0); // also use as DIO WAKE SOURCE
-				// vAHI_DioWakeEdge(0, PORT_INPUT_MASK); // 割り込みエッジ（立下りに設定）
-				vAHI_DioWakeEdge(u32DioPortWakeUp, 0); // 割り込みエッジ（立上がりに設定）
-				// vAHI_DioWakeEnable(0, PORT_INPUT_MASK); // DISABLE DIO WAKE SOURCE
-
-				// wake up using wakeup timer as well.
-				// ToCoNet_vSleep(E_AHI_WAKE_TIMER_0, 0, FALSE, TRUE); // RAM OFF SLEEP USING WK0
-				//ToCoNet_vSleep(E_AHI_WAKE_TIMER_0, 15000, FALSE, FALSE); // RAM ON SLEEP USING WK0
-				ToCoNet_vSleep(E_AHI_WAKE_TIMER_0, 15000, FALSE, TRUE); // RAM ON SLEEP USING WK0
-			}
+		case 'L':
+			vPortSetLo(PORT_LED);
 			break;
 
 		case 'p':
@@ -647,6 +572,107 @@ static void vProcessEvCore(tsEvent *pEv, teEvent eEvent, uint32 u32evarg) {
 	    	vfPrintf(&sSerStream, "\r\n*** %08x ***", ToCoNet_u32GetSerial());
 	    }
 	}
+}
+
+/****************************************************************************
+ *
+ * NAME: vBroadcastStatus
+ *
+ * DESCRIPTION:
+ *
+ * RETURNS:
+ *
+ ****************************************************************************/
+static void vBroadcastStatus(void) {
+	tsTxDataApp tsTx;
+
+	vfPrintf(&sSerStream, LB "Send PING" LB);
+	SERIAL_vFlush(sSerStream.u8Device);
+
+	memset(&tsTx, 0, sizeof(tsTxDataApp));
+
+	sAppData.u32Seq = ToCoNet_u32GetRand();
+
+	tsTx.u32SrcAddr = ToCoNet_u32GetSerial(); // 自身のアドレス
+	tsTx.u32DstAddr = 0xFFFF; // ブロードキャスト
+
+	tsTx.bAckReq = FALSE;
+	tsTx.u8Retry = 0x82; // ブロードキャストで都合３回送る
+	tsTx.u8CbId = sAppData.u32Seq & 0xFF;
+	tsTx.u8Seq = sAppData.u32Seq & 0xFF;
+	tsTx.u8Cmd = TOCONET_PACKET_CMD_APP_DATA;
+
+	// SPRINTF でメッセージを作成
+	SPRINTF_vRewind();
+	vfPrintf(SPRINTF_Stream, "PING: %08X", ToCoNet_u32GetSerial());
+	memcpy(tsTx.auData, SPRINTF_pu8GetBuff(), SPRINTF_u16Length());
+	tsTx.u8Len = SPRINTF_u16Length();
+
+	// 送信
+	ToCoNet_bMacTxReq(&tsTx);
+}
+
+/****************************************************************************
+ *
+ * NAME: vSleepSec()
+ *
+ * DESCRIPTION:
+ *
+ * RETURNS:
+ *
+ ****************************************************************************/
+static void vSleepSec(int sec)
+{
+	vfPrintf(&sSerStream, "now sleep for %d seconds." LB, sec);
+	SERIAL_vFlush(sSerStream.u8Device); // flushing
+
+	vAHI_UartDisable(sSerStream.u8Device);
+	vAHI_DioSetDirection(u32DioPortWakeUp, 0); // set as input
+	(void)u32AHI_DioInterruptStatus(); // clear interrupt register
+	vAHI_DioWakeEnable(u32DioPortWakeUp, 0); // also use as DIO WAKE SOURCE
+	vAHI_DioWakeEdge(u32DioPortWakeUp, 0); // 割り込みエッジ（立上がりに設定）
+
+	ToCoNet_vSleep(E_AHI_WAKE_TIMER_0, sec * 1000, FALSE, TRUE); // RAM ON SLEEP USING WK0
+}
+
+/****************************************************************************
+ *
+ * NAME: vSleepSec()
+ *
+ * DESCRIPTION:
+ *
+ * RETURNS:
+ *
+ ****************************************************************************/
+static void vProcessIncomingData(tsRxDataApp *pRx)
+{
+	// transmit Ack back
+	tsTxDataApp tsTx;
+	memset(&tsTx, 0, sizeof(tsTxDataApp));
+
+	tsTx.u32SrcAddr = ToCoNet_u32GetSerial(); //
+	tsTx.u32DstAddr = pRx->u32SrcAddr; // 送り返す
+	tsTx.u32DstAddr = 0xFFFF; // ブロードキャスト
+
+	tsTx.bAckReq = TRUE;
+	tsTx.u8Retry = 0x81;
+	tsTx.u8CbId = pRx->u8Seq;
+	tsTx.u8Seq = pRx->u8Seq;
+	tsTx.u8Len = pRx->u8Len;
+	tsTx.u8Cmd = TOCONET_PACKET_CMD_APP_DATA;
+
+	if (tsTx.u8Len > 0) {
+		memcpy(tsTx.auData, pRx->auData, tsTx.u8Len);
+	}
+	tsTx.auData[1] = 'O'; // メッセージを PONG に書き換える
+
+	ToCoNet_bMacTxReq(&tsTx);
+
+	// turn on Led a while
+	sAppData.u32LedCt = u32TickCount_ms;
+
+	// ＵＡＲＴに出力
+	vfPrintf(&sSerStream, LB "Fire PONG Message to %08x" LB, pRx->u32SrcAddr);
 }
 
 /****************************************************************************/
