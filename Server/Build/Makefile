@@ -46,6 +46,8 @@ include ../Version.mk
 #   ../Common/Source
 #
 APPSRC += $(TARGET_DIR).c
+APPSRC += sensor_driver.c
+APPSRC += adc.c
 
 ### Target type
 # アプリケーション(.bin)をビルドするか、ライブラリ(.a)にするか指定します。

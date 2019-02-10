@@ -11,10 +11,12 @@
 #include <AppHardwareApi.h>
 
 #include "utils.h"
+#include "ccitt8.h"
 
-#include "twepower.h"
-#include "config.h"
-#include "common.h"
+#include "sensor_driver.h"
+#include "adc.h"
+
+#include "Server.h"
 #include "Version.h"
 
 // DEBUG options
@@ -57,12 +59,13 @@ typedef struct
     uint32 u32Seq;
 
     // スリープカウンタ
-    uint8 u8SleepCt;
-
-	//
 	uint32 u32Counter;
-} tsAppData;
 
+	// ADC
+	tsObjData_ADC sObjADC;	// ADC管理構造体（データ部）
+	tsSnsObj sADC;			// ADC管理構造体（制御部）
+	uint8 u8ADCDone;		// ADC読み込み完了(=1), 送信完了(=2)
+} tsAppData;
 
 /****************************************************************************/
 /***        Local Function Prototypes                                     ***/
@@ -78,6 +81,7 @@ static void vHandleSerialInput(void);
 static void vBroadcastStatus(void);
 static void vSleepSec(int sec);
 static void vProcessIncomingData(tsRxDataApp *pRx);
+static void vPutHex(uint8 *buf, int hex);
 
 /****************************************************************************/
 /***        Exported Variables                                            ***/
@@ -203,10 +207,13 @@ void cbToCoNet_vMain(void)
 	vHandleSerialInput();
 
 	sAppData.u32Counter ++;
-	if (sAppData.u32Counter == 1) {
-		vBroadcastStatus();
-	} else if (sAppData.u32Counter > 1000) {
+	if (sAppData.u32Counter > 1000) {
+		sAppData.u32Counter = 0;
+		//vfPrintf(&sSerStream, ".");
 		vSleepSec(10);
+	} else if (sAppData.u8ADCDone == 1) {
+		sAppData.u8ADCDone = 2;
+		vBroadcastStatus();
 	}
 }
 
@@ -314,17 +321,20 @@ void cbToCoNet_vHwEvent(uint32 u32DeviceId, uint32 u32ItemBitmap)
 {
     switch (u32DeviceId) {
     case E_AHI_DEVICE_TICK_TIMER:
-		// LED BLINK
-   		vPortSet_TrueAsLo(PORT_KIT_LED2, u32TickCount_ms & 0x400);
-
-   		// LED ON when receive
-   		if (u32TickCount_ms - sAppData.u32LedCt < 300) {
-   			vPortSetLo(PORT_KIT_LED1);
-   		} else {
-  			vPortSetHi(PORT_KIT_LED1);
-   		}
-
     	break;
+
+	case E_AHI_DEVICE_ANALOGUE:
+		// ADC完了割り込み
+		vSnsObj_Process(&sAppData.sADC, E_ORDER_KICK);
+		if (bSnsObj_isComplete(&sAppData.sADC)) {
+			// 全チャネルの処理が終わった。
+			sAppData.u8ADCDone = 1;
+			vSnsObj_Process(&sAppData.sADC, E_ORDER_KICK);
+			//vSnsObj_Process(&sAppData.sADC, E_ORDER_KICK);
+
+			vfPrintf(&sSerStream, LB "ADC Read Complete." LB);
+		}
+		break;
 
     default:
     	break;
@@ -371,7 +381,7 @@ static void vInitHardware(int f_warm_start)
 	ToCoNet_vDebugInit(&sSerStream);
 	ToCoNet_vDebugLevel(0);
 
-	/// IOs
+	// IOs
 	vPortDisablePullup(PORT_RESET);
 	vPortDisablePullup(PORT_SET);
 	vPortDisablePullup(PORT_LED);
@@ -381,11 +391,23 @@ static void vInitHardware(int f_warm_start)
 	vPortAsOutput(PORT_RESET);
 	vPortAsOutput(PORT_SET);
 	vPortAsOutput(PORT_LED);
+
+	// ADC関係のデータを初期化する
+	//vSnsObj_Init(&sAppData.sADC);
+	vADC_Init(&sAppData.sObjADC, &sAppData.sADC, TRUE);
+	// ハード初期化待ちを行う
+	//vADC_WaitInit();
+	// 計測ポートを設定する
+	sAppData.sObjADC.u8SourceMask = TEH_ADC_SRC_VOLT | TEH_ADC_SRC_ADC_1 | TEH_ADC_SRC_ADC_3;
+	// ADC計測開始
+	vSnsObj_Process(&sAppData.sADC, E_ORDER_KICK);
+
+	vfPrintf(&sSerStream, LB "Initialize Hardware complete.");
 }
 
 /****************************************************************************
  *
- * NAME: vInitHardware
+ * NAME: vSerialInit
  *
  * DESCRIPTION:
  *
@@ -470,26 +492,32 @@ static void vHandleSerialInput(void)
 
 		case 's':
 			vPortSetHi(PORT_SET);
+			vfPrintf(&sSerStream, LB "Set High PORT_SET.");
 			break;
 
 		case 'S':
 			vPortSetLo(PORT_SET);
+			vfPrintf(&sSerStream, LB "Set Low PORT_SET.");
 			break;
 
 		case 'r':
 			vPortSetHi(PORT_RESET);
+			vfPrintf(&sSerStream, LB "Set High PORT_RESET.");
 			break;
 
 		case 'R':
 			vPortSetLo(PORT_RESET);
+			vfPrintf(&sSerStream, LB "Set Low PORT_RESET.");
 			break;
 
 		case 'l':
 			vPortSetHi(PORT_LED);
+			vfPrintf(&sSerStream, LB "Set High PORT_LED.");
 			break;
 
 		case 'L':
 			vPortSetLo(PORT_LED);
+			vfPrintf(&sSerStream, LB "Set Low PORT_LED.");
 			break;
 
 		case 'p':
@@ -564,9 +592,8 @@ static void vProcessEvCore(tsEvent *pEv, teEvent eEvent, uint32 u32evarg) {
 			vfPrintf(&sSerStream, LB "RAMHOLD");
 		}
 	    if (u32evarg & EVARG_START_UP_WAKEUP_MASK) {
-			vfPrintf(&sSerStream, LB "Wake up by %s. SleepCt=%d",
-					bWakeupByButton ? "UART PORT" : "WAKE TIMER",
-					sAppData.u8SleepCt);
+			vfPrintf(&sSerStream, LB "Wake up by %s.",
+					bWakeupByButton ? "UART PORT" : "WAKE TIMER");
 	    } else {
 	    	vfPrintf(&sSerStream, "\r\n*** TWELITE NET PINGPONG SAMPLE %d.%02d-%d ***", VERSION_MAIN, VERSION_SUB, VERSION_VAR);
 	    	vfPrintf(&sSerStream, "\r\n*** %08x ***", ToCoNet_u32GetSerial());
@@ -602,14 +629,30 @@ static void vBroadcastStatus(void) {
 	tsTx.u8Seq = sAppData.u32Seq & 0xFF;
 	tsTx.u8Cmd = TOCONET_PACKET_CMD_APP_DATA;
 
-	// SPRINTF でメッセージを作成
+	// ヘッダー部
+	memcpy(tsTx.auData, TWPOWER_HEADER, TWPOWER_HEADER_SIZE);
+	// データ部
 	SPRINTF_vRewind();
-	vfPrintf(SPRINTF_Stream, "PING: %08X", ToCoNet_u32GetSerial());
-	memcpy(tsTx.auData, SPRINTF_pu8GetBuff(), SPRINTF_u16Length());
-	tsTx.u8Len = SPRINTF_u16Length();
+//	vfPrintf(SPRINTF_Stream, "PING: %08X", ToCoNet_u32GetSerial());
+	vfPrintf(SPRINTF_Stream, "ST%04X%04X%04X\n",
+			 sAppData.sObjADC.ai16Result[TEH_ADC_IDX_VOLT],
+			 sAppData.sObjADC.ai16Result[TEH_ADC_IDX_ADC_1],
+			 sAppData.sObjADC.ai16Result[TEH_ADC_IDX_ADC_3]);
+	int size = SPRINTF_u16Length();
+	memcpy(&tsTx.auData[TWPOWER_HEADER_SIZE], SPRINTF_pu8GetBuff(), size);
+	// データ部CRC
+	uint8 u8crc = u8CCITT8(&tsTx.auData[TWPOWER_HEADER_SIZE], size);
+	vPutHex(&tsTx.auData[TWPOWER_CRC_POS], u8crc);
+	// データ部サイズ
+	vPutHex(&tsTx.auData[TWPOWER_SIZE_POS], size);
+
+	// ペイロード長設定
+	tsTx.u8Len = TWPOWER_HEADER_SIZE + size;
 
 	// 送信
 	ToCoNet_bMacTxReq(&tsTx);
+
+	vfPrintf(&sSerStream, LB "Send: '%s'" LB, &tsTx.auData);
 }
 
 /****************************************************************************
@@ -637,7 +680,7 @@ static void vSleepSec(int sec)
 
 /****************************************************************************
  *
- * NAME: vSleepSec()
+ * NAME: vProcessIncomingData()
  *
  * DESCRIPTION:
  *
@@ -673,6 +716,22 @@ static void vProcessIncomingData(tsRxDataApp *pRx)
 
 	// ＵＡＲＴに出力
 	vfPrintf(&sSerStream, LB "Fire PONG Message to %08x" LB, pRx->u32SrcAddr);
+}
+
+/****************************************************************************
+ *
+ * NAME: vPutHex()
+ *
+ * DESCRIPTION:
+ *
+ * RETURNS:
+ *
+ ****************************************************************************/
+static void vPutHex(uint8 *buf, int hex) {
+	static char table[17] = "0123456789ABCDEF";
+
+	*buf++ = table[(hex & 0xF0) >> 4];
+	*buf++ = table[hex & 0x0F];
 }
 
 /****************************************************************************/

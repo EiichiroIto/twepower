@@ -4,7 +4,7 @@
             "name": "TWELITE BLUE",
             "includePath": [
                 "${workspaceFolder}",
-                "${workspaceRoot}/PingPong/Source",
+                "${workspaceRoot}/Server/Source",
                 "${workspaceRoot}/Common/Source",
                 "${workspaceRoot}/../../Tools/VSCode/include/twenet",
                 "${workspaceRoot}/../../Tools/VSCode/include/twenetutils",
@@ -42,7 +42,7 @@
             "browse": {
                 "path": [
                     "${workspaceFolder}",
-                    "${workspaceRoot}/PingPong/Source",
+                    "${workspaceRoot}/Server/Source",
                     "${workspaceRoot}/Common/Source",
                     "${workspaceRoot}/../../Tools/VSCode/include/twenet",
                     "${workspaceRoot}/../../Tools/VSCode/include/twenetutils",
@@ -60,7 +60,7 @@
             "name": "TWELITE RED",
             "includePath": [
                 "${workspaceFolder}",
-                "${workspaceRoot}/PingPong/Source",
+                "${workspaceRoot}/Server/Source",
                 "${workspaceRoot}/Common/Source",
                 "${workspaceRoot}/../../Tools/VSCode/include/twenet",
                 "${workspaceRoot}/../../Tools/VSCode/include/twenetutils",
@@ -101,7 +101,7 @@
             "browse": {
                 "path": [
                     "${workspaceFolder}",
-                    "${workspaceRoot}/PingPong/Source",
+                    "${workspaceRoot}/Server/Source",
                     "${workspaceRoot}/Common/Source",
                     "${workspaceRoot}/../../Tools/VSCode/include/twenet",
                     "${workspaceRoot}/../../Tools/VSCode/include/twenetutils",

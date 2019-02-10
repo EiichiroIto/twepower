@@ -1,0 +1,1105 @@
+Archive member included because of file (symbol)
+
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENET_BLUE.a(ToCoNet_event.o)
+                              objs_BLUE/Server.o (symbol from plugin) (PRSEV_u8Register)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENET_BLUE.a(ToCoNet_main.o)
+                              objs_BLUE/Server.o (symbol from plugin) (u32TickCount_ms)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENET_BLUE.a(ToCoNet_utils.o)
+                              ToCoNet_main.o (symbol from plugin) (ToCoNet_u32GetVersion)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENET_BLUE.a(ToCoNet_mod_Tx.o)
+                              objs_BLUE/Server.o (symbol from plugin) (ToCoNet_vReg_mod_Tx_Standard)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENET_BLUE.a(ToCoNet_mod_TxRxQueue.o)
+                              objs_BLUE/Server.o (symbol from plugin) (ToCoNet_vReg_mod_TxRxQueueMid)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENET_BLUE.a(ToCoNet_mod_Nwk_Common.o)
+                              ToCoNet_main.o (symbol from plugin) (ToCoNet_vRxProc_Mod)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENET_BLUE.a(ToCoNet_mod_Channel_Mgr.o)
+                              ToCoNet_mod_Tx.o (symbol from plugin) (ToCoNet_ChMgr_bCh_OnTx)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENET_BLUE.a(Version.o)
+                              ToCoNet_utils.o (symbol from plugin) (au8ToCoNetVersionInfo)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENET_BLUE.a(AppQueueApi_ToCoNet.o)
+                              ToCoNet_main.o (symbol from plugin) (u32AppQApiInitInt_PATCH)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENEText_BLUE.a(AppStart.o)
+                              (AppColdStart)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENEText_BLUE.a(getMacAddr.o)
+                              ToCoNet_main.o (symbol from plugin) (ToCoNet_u32GetSerialOnBoot)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENEText_BLUE.a(mac.o)
+                              ToCoNet_main.o (symbol from plugin) (Mac_vInit)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENEText_BLUE.a(AES_CCM.o)
+                              AppStart.o (symbol from plugin) (bAES_CCM_KeyReg)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENEText_BLUE.a(no_ack_handler.o)
+                              AppStart.o (symbol from plugin) (vInstallNoAckHandler)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENEText_BLUE.a(Version.o)
+                              ToCoNet_utils.o (symbol from plugin) (au8ToCoNetExtVersionInfo)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENETutils_BLUE.a(serial.o)
+                              objs_BLUE/Server.o (symbol from plugin) (SERIAL_vInitEx)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENETutils_BLUE.a(uart.o)
+                              serial.o (symbol from plugin) (UART_vInit)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENETutils_BLUE.a(ByteQueue.o)
+                              ToCoNet_main.o (symbol from plugin) (QUEUE__vInit)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENETutils_BLUE.a(ccitt8.o)
+                              objs_BLUE/Server.o (symbol from plugin) (u8CCITT8)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENETutils_BLUE.a(fprintf.o)
+                              objs_BLUE/Server.o (symbol from plugin) (vfPrintf)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENETutils_BLUE.a(sprintf.o)
+                              objs_BLUE/Server.o (symbol from plugin) (SPRINTF_Stream)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENETutils_BLUE.a(utils.o)
+                              ToCoNet_main.o (symbol from plugin) (vTimerConfig)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENETutils_BLUE.a(ccm.o)
+                              AES_CCM.o (symbol from plugin) (ccm_init_and_key)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENETutils_BLUE.a(Version.o)
+                              ToCoNet_utils.o (symbol from plugin) (au8ToCoNetUtilsVersionInfo)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENETutils_BLUE.a(aescrypt.o)
+                              ccm.o (symbol from plugin) (aes_encrypt)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENETutils_BLUE.a(aeskey.o)
+                              ccm.o (symbol from plugin) (aes_encrypt_key)
+/home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENETutils_BLUE.a(aestab.o)
+                              aeskey.o (symbol from plugin) (t_im)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libAppApi_JN516x.a(AppApi.o)
+                              (pvAppApiDefGetMacHandle)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libAppApi_JN516x.a(AppApiSleep.o)
+                              (vAppApiDefSaveMacSettings)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(mac_main.o)
+                              AppApi.o (symbol from plugin) (MAC_pvCtor)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(mac_mcps.o)
+                              AppApi.o (symbol from plugin) (MAC_vHandleMcpsReqRsp)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(mac_mlme.o)
+                              AppApi.o (symbol from plugin) (MAC_vHandleMlmeReqRsp)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(mac_pib.o)
+                              AppStart.o (symbol from plugin) (MAC_psPibGetHandle)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(mac_pib_mlme.o)
+                              mac_main.o (symbol from plugin) (mac_vPibSetDefaults)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(mac_pmic.o)
+                              mac_main.o (symbol from plugin) (vPMICreset)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(mac_ind.o)
+                              AppApi.o (symbol from plugin) (MAC_vRegisterMlmeDcfmIndCallbacks)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(mac_scan.o)
+                              mac_main.o (symbol from plugin) (mac_eScanInit)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(mac_lp.o)
+                              mac_pmic.o (symbol from plugin) (g_sLP)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(MCPS.o)
+                              mac_mcps.o (symbol from plugin) (vTAM_MCPSdataRequest)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(phy_pib.o)
+                              AppApi.o (symbol from plugin) (phy_ePibGet)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAM.o)
+                              MCPS.o (symbol from plugin) (bTAMinPAN)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAMCO.o)
+                              TAM.o (symbol from plugin) (vTAMCOsetCoordinator)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAMDE.o)
+                              TAM.o (symbol from plugin) (vTAMDEdetermineNullState)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAM_MEM.o)
+                              TAM.o (symbol from plugin) (vMEMreset)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAM_MLME.o)
+                              mac_scan.o (symbol from plugin) (vMLMEbeaconNotify)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAM_TAH.o)
+                              TAMCO.o (symbol from plugin) (vTAHsetCutOff)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAM_TAI.o)
+                              TAM.o (symbol from plugin) (vTAIsetCapTime)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAM_TAT.o)
+                              TAMDE.o (symbol from plugin) (vTATstartReceiveAt)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAMcommon.o)
+                              mac_scan.o (symbol from plugin) (bTACassessBeaconForPayload)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAMevent.o)
+                              mac_lp.o (symbol from plugin) (vTAMinsertEvent)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAMqueue.o)
+                              TAMcommon.o (symbol from plugin) (vTAQaddToFifo)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAMrxEnable.o)
+                              TAMevent.o (symbol from plugin) (vTAMRXEint2Fired)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAMsecurity.o)
+                              TAMcommon.o (symbol from plugin) (vTSCgetIncomingInfo)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAMsideways.o)
+                              mac_pmic.o (symbol from plugin) (eTAStransmitRequest)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAMtime.o)
+                              TAM.o (symbol from plugin) (vTTIBLETimerExpired)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(TAM_AES.o)
+                              TAMsecurity.o (symbol from plugin) (u8TAM_AES_WriteAuxilliarySecurityHeaderIntoBuffer)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(Endian.o)
+                              TAM_AES.o (symbol from plugin) (vFromU16ToLe)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(mac_acl.o)
+                              TAMsecurity.o (symbol from plugin) (MAC_u8AclFindInfo)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a(mac_misc.o)
+                              mac_mlme.o (symbol from plugin) (vMAC_MISCpollRequest)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libTimerServer_JN516x.a(tsv_main.o)
+                              AppApiSleep.o (symbol from plugin) (s_sTimerList)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libXcv_JN516x.a(xcv_main.o)
+                              AppApi.o (symbol from plugin) (XCV_vCtor)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libXcv_JN516x.a(xcv_access.o)
+                              mac_main.o (symbol from plugin) (XCV_vDevWriteIER)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libXcv_JN516x.a(xcv_isr.o)
+                              AppApi.o (symbol from plugin) (vXCV_IntHandlerPhy)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libAes_JN516x.a(AEScoprocessorCCM.o)
+                              AES_CCM.o (symbol from plugin) (bACI_CCMstar)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libAes_JN516x.a(AES_CCM_Star.o)
+                              TAM_AES.o (symbol from plugin) (vACI_OptimisedCcmStar)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libAes_JN516x.a(AEScoprocessorAPI.o)
+                              AES_CCM_Star.o (symbol from plugin) (vACI_CmdWaitBusy)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_Analogue.o)
+                              objs_BLUE/adc.o (symbol from plugin) (bAHI_APRegulatorEnabled)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_BrownOut.o)
+                              objs_BLUE/Server.o (symbol from plugin) (vAHI_BrownOutConfigure)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_Dio.o)
+                              objs_BLUE/Server.o (symbol from plugin) (vAHI_DioSetDirection)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_Reset.o)
+                              ToCoNet_main.o (symbol from plugin) (vAHI_SwReset)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_Spi.o)
+                              AppQueueApi_ToCoNet.o (symbol from plugin) (vAHI_SpiRegisterCallback)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_System.o)
+                              AppApiSleep.o (symbol from plugin) (u8AHI_PowerStatus)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_Timer.o)
+                              utils.o (symbol from plugin) (vAHI_TimerEnable)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_TimerInt.o)
+                              AppQueueApi_ToCoNet.o (symbol from plugin) (vAHI_Timer0RegisterCallback)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_Uart.o)
+                              uart.o (symbol from plugin) (vAHI_UartSetBaudDivisor)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_WakeTimer.o)
+                              ToCoNet_utils.o (symbol from plugin) (vAHI_WakeTimerEnable)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_Flash.o)
+                              AHI_System.o (symbol from plugin) (vAHI_FlashAndEEPROMControllerIntHandler)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_Infrared.o)
+                              AHI_TimerInt.o (symbol from plugin) (vAHI_IntHandlerInfrared)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(InternalFlashApi.o)
+                              AHI_Flash.o (symbol from plugin) (bFlashErase)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_FlashIndexSector.o)
+                              AppStart.o (symbol from plugin) (bAHI_ReadMACID)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_Si.o)
+                              AppQueueApi_ToCoNet.o (symbol from plugin) (vAHI_SiRegisterCallback)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_TickTimer.o)
+                              AppQueueApi_ToCoNet.o (symbol from plugin) (vAHI_TickTimerInit)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_Interrupt.o)
+                              AppApi.o (symbol from plugin) (vAHI_InterruptSetPriority)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_Init.o)
+                              AppStart.o (symbol from plugin) (u32AHI_Init)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_SpiSlave.o)
+                              AHI_Init.o (symbol from plugin) (vAHI_IntHandlerSpiSlave)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMicroSpecific_JN516x.a(MicroInt_ba.o)
+                              serial.o (symbol from plugin) (vMicroIntEnableOnly)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMicroSpecific_JN516x.a(MicroSyscall_ba.o)
+                              AHI_Reset.o (symbol from plugin) (vMicroSyscall)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libBoot_JN516x.a(Heap.o)
+                              (u32HeapStart)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libBoot_JN516x.a(ExceptionHandler.o)
+                              (_exception_external_interrupt)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libAppApi_JN516x.a(AppHousekeeping.o)
+                              mac_scan.o (symbol from plugin) (sAppHousekeeping)
+/home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libAes_JN516x.a(AEScoprocessorAPIinterrupts.o)
+                              AHI_Init.o (symbol from plugin) (vACI_IntHandlerAes)
+/home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcmp.o)
+                              /tmp/ccVrSdpF.ltrans0.ltrans.o (memcmp)
+/home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcpy.o)
+                              /tmp/ccVrSdpF.ltrans0.ltrans.o (memcpy)
+/home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memset.o)
+                              /tmp/ccVrSdpF.ltrans0.ltrans.o (memset)
+/home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__udivsi3.o)
+                              /tmp/ccVrSdpF.ltrans2.ltrans.o (__udivsi3)
+/home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__divsi3.o)
+                              /tmp/ccVrSdpF.ltrans13.ltrans.o (__divsi3)
+/home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__umodsi3.o)
+                              /tmp/ccVrSdpF.ltrans4.ltrans.o (__umodsi3)
+/home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(_udivdi3.o)
+                              /tmp/ccVrSdpF.ltrans0.ltrans.o (__udivdi3)
+
+Allocating common symbols
+Common symbol       size              file
+
+_TWENET_TX_POWER_MAX
+                    0x1               AppStart.o (symbol from plugin)
+apvHwIndBufferData  0x2c              AppQueueApi_ToCoNet.o (symbol from plugin)
+prMAC_TofMlmeReqHandler
+                    0x4               mac_mlme.o (symbol from plugin)
+apvMlmeIndBufferData
+                    0x14              AppQueueApi_ToCoNet.o (symbol from plugin)
+_TWENET_TX_POWER_VALUE
+                    0x1               AppStart.o (symbol from plugin)
+g_tSpiConfiguration
+                    0x4               AHI_Flash.o (symbol from plugin)
+prMAC_TofRxHandler  0x4               TAMcommon.o (symbol from plugin)
+_MAC_u8TxFailReason
+                    0x1               mac.o (symbol from plugin)
+apvMcpsIndBufferData
+                    0x14              AppQueueApi_ToCoNet.o (symbol from plugin)
+bAHI_ExtendedTemperatureOperation
+                    0x1               AHI_System.o (symbol from plugin)
+bMAC_DiscardUnsuccessfulAssocResponses
+                    0x1               mac_pmic.o (symbol from plugin)
+u8Msq               0x1               TAM_TAT.o (symbol from plugin)
+g_bLegacyHwBugEmulation
+                    0x1               AES_CCM_Star.o (symbol from plugin)
+
+Discarded input sections
+
+ .text          0x0000000000000000        0x0 objs_BLUE/Server.o (symbol from plugin)
+ .data          0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans1.ltrans.o
+ .data          0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans3.ltrans.o
+ .data          0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans4.ltrans.o
+ .data          0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans6.ltrans.o
+ .data          0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans7.ltrans.o
+ .data          0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans9.ltrans.o
+ .data          0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans10.ltrans.o
+ .data          0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans11.ltrans.o
+ .data          0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans12.ltrans.o
+ .text          0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans13.ltrans.o
+ .data          0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans13.ltrans.o
+ .data          0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans14.ltrans.o
+ .data          0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans15.ltrans.o
+ .data          0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcmp.o)
+ .bss           0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcmp.o)
+ .data          0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcpy.o)
+ .bss           0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcpy.o)
+ .data          0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memset.o)
+ .bss           0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memset.o)
+ .data          0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__udivsi3.o)
+ .bss           0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__udivsi3.o)
+ .data          0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__divsi3.o)
+ .bss           0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__divsi3.o)
+ .data          0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__umodsi3.o)
+ .bss           0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__umodsi3.o)
+ .data          0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(_udivdi3.o)
+ .bss           0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(_udivdi3.o)
+ .eh_frame      0x0000000000000000       0x38 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(_udivdi3.o)
+ .text          0x0000000000000000        0x0 objs_BLUE/sensor_driver.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 objs_BLUE/adc.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 ToCoNet_event.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 ToCoNet_main.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 ToCoNet_utils.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 ToCoNet_mod_Tx.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 ToCoNet_mod_TxRxQueue.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 ToCoNet_mod_Nwk_Common.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 ToCoNet_mod_Channel_Mgr.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 Version.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AppQueueApi_ToCoNet.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AppStart.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 getMacAddr.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 mac.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AES_CCM.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 no_ack_handler.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 Version.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 serial.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 uart.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 ByteQueue.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 ccitt8.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 fprintf.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 sprintf.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 utils.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 ccm.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 Version.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 aescrypt.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 aeskey.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 aestab.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AppApi.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AppApiSleep.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 mac_main.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 mac_mcps.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 mac_mlme.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 mac_pib.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 mac_pib_mlme.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 mac_pmic.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 mac_ind.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 mac_scan.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 mac_lp.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 MCPS.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 phy_pib.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAM.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAMCO.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAMDE.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAM_MEM.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAM_MLME.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAM_TAH.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAM_TAI.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAM_TAT.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAMcommon.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAMevent.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAMqueue.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAMrxEnable.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAMsecurity.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAMsideways.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAMtime.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 TAM_AES.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 Endian.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 mac_acl.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 mac_misc.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 tsv_main.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 xcv_main.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 xcv_access.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 xcv_isr.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AEScoprocessorCCM.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AES_CCM_Star.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AEScoprocessorAPI.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_Analogue.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_BrownOut.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_Dio.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_Reset.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_Spi.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_System.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_Timer.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_TimerInt.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_Uart.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_WakeTimer.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_Flash.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_Infrared.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 InternalFlashApi.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_FlashIndexSector.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_Si.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_TickTimer.o (symbol from plugin)
+ .data          0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_Interrupt.o)
+ .bss           0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_Interrupt.o)
+ .text          0x0000000000000000        0x0 AHI_Init.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AHI_SpiSlave.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 MicroInt_ba.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMicroSpecific_JN516x.a(MicroSyscall_ba.o)
+ .data          0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMicroSpecific_JN516x.a(MicroSyscall_ba.o)
+ .bss           0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMicroSpecific_JN516x.a(MicroSyscall_ba.o)
+ .text          0x0000000000000000        0x0 Heap.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libBoot_JN516x.a(ExceptionHandler.o)
+ .data          0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libBoot_JN516x.a(ExceptionHandler.o)
+ .bss           0x0000000000000000        0x0 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libBoot_JN516x.a(ExceptionHandler.o)
+ .text          0x0000000000000000        0x0 AppHousekeeping.o (symbol from plugin)
+ .text          0x0000000000000000        0x0 AEScoprocessorAPIinterrupts.o (symbol from plugin)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+flash            0x0000000000080000 0x0000000000028000
+ram              0x000000000400004c 0x0000000000007fb4
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD objs_BLUE/Server.o
+LOAD /tmp/ccVrSdpF.ltrans0.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans1.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans2.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans3.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans4.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans5.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans6.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans7.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans8.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans9.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans10.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans11.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans12.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans13.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans14.ltrans.o
+LOAD /tmp/ccVrSdpF.ltrans15.ltrans.o
+LOAD /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a
+LOAD /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a
+LOAD /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a
+LOAD objs_BLUE/sensor_driver.o
+LOAD objs_BLUE/adc.o
+LOAD /home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENET_BLUE.a
+LOAD /home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENEText_BLUE.a
+LOAD /home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENETutils_BLUE.a
+START GROUP
+LOAD /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libAppApi_JN516x.a
+LOAD /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMAC_JN516x.a
+LOAD /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libTimerServer_JN516x.a
+LOAD /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libTOF_JN516x.a
+LOAD /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libXcv_JN516x.a
+LOAD /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libAes_JN516x.a
+LOAD /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a
+LOAD /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMicroSpecific_JN516x.a
+LOAD /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libBoot_JN516x.a
+LOAD /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libPDM_EEPROM_JN516x_NO_RTOS.a
+LOAD /home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENET_BLUE.a
+LOAD /home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENEText_BLUE.a
+LOAD /home/itoh/working/twelite/MWSDK/Wks_TWELITE/twepower/../../TWENET/L1200/lib/libTWENETutils_BLUE.a
+END GROUP
+LOAD /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a
+LOAD /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a
+LOAD /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a
+                0x0000000000000800                _stack_size = 0x800
+                0x0000000000080038                _exception_vsr_table = 0x80038
+                0x0000000004000000                pSPIflashFncTable = 0x4000000
+                0x0000000000000800                _stack_size = 0x800
+                0x0000000000000044                restore_state = 0x44
+                0x000000000000004a                bZSPIWaitWIPClear = 0x4a
+                0x0000000000000050                u16ZSPIflashRDID = 0x50
+                0x0000000000000056                u8SelectFlashChipType = 0x56
+                0x000000000000005c                memcpy = 0x5c
+                0x0000000000000066                vBootFlashProg = 0x66
+                [0x0000000000000d16]                _minimum_heap_size = DEFINED (_minimum_heap_size)?_minimum_heap_size:0xd16
+                0x0000000000000000                _SwConfig = (DEFINED (g_bSWConf_Debug) | (DEFINED (g_bSWConf_AltDebugPort) << 0x1))
+
+.version        0x000000000007fffc        0x4
+                0x000000000007fffc        0x4 LONG 0x4030008
+
+.bir            0x0000000000080000       0x10
+                0x0000000000080000                _flash_start = ABSOLUTE (.)
+                0x0000000000080000                _flash_beg = ABSOLUTE (.)
+                0x0000000000080000        0x4 LONG 0x12345678
+                0x0000000000080004        0x4 LONG 0x11223344
+                0x0000000000080008        0x4 LONG 0x55667788
+                0x000000000008000c        0x1 BYTE 0x8
+                0x000000000008000d        0x1 BYTE 0x1
+                0x000000000008000e        0x2 SHORT 0x0
+
+.flashheader    0x0000000000080010       0x28
+                0x0000000000080010        0x4 LONG 0x0
+                0x0000000000080014        0x4 LONG 0x0
+                0x0000000000080018        0x4 LONG 0x0
+                0x000000000008001c        0x2 SHORT 0x0
+                0x000000000008001e        0x2 SHORT 0x0 ABSOLUTE (_SwConfig)
+                0x0000000000080020                _enc_start = ABSOLUTE (.)
+                0x0000000000080020        0x4 LONG 0xb2ec ABSOLUTE (_image_len)
+                0x0000000000080024        0x4 LONG 0x8b2d8 ABSOLUTE (_flash_data_start)
+                0x0000000000080028        0x2 SHORT 0x13 ((ABSOLUTE (_ram_data_start) / 0x4) & 0xffff)
+                0x000000000008002a        0x2 SHORT 0x5 ((ABSOLUTE (_ram_data_len) / 0x4) & 0xffff)
+                0x000000000008002c        0x2 SHORT 0x18 ((ABSOLUTE (_bss_start) / 0x4) & 0xffff)
+                0x000000000008002e        0x2 SHORT 0x673 ((ABSOLUTE (_bss_len) / 0x4) & 0xffff)
+                0x0000000000080030        0x4 LONG 0x87330 ABSOLUTE (AppWarmStart)
+                0x0000000000080034        0x4 LONG 0x8a5e0 ABSOLUTE (AppColdStart)
+                0x0000000000000000                _enc_offset = (_enc_start & 0xf)
+                0x0000000000000044                PROVIDE (vException_BusError, restore_state)
+                0x0000000000000044                PROVIDE (vException_UnalignedAccess, restore_state)
+                0x0000000000000044                PROVIDE (vException_IllegalInstruction, restore_state)
+                0x0000000000000044                PROVIDE (vException_SysCall, restore_state)
+                0x0000000000000044                PROVIDE (vException_Trap, restore_state)
+                0x0000000000000044                PROVIDE (vException_StackOverflow, restore_state)
+                0x0000000000080038                . = ABSOLUTE (_exception_vsr_table)
+
+.vsr_table      0x0000000000080038       0x18
+                0x0000000000080038        0x4 LONG 0x44 ABSOLUTE (vException_BusError)
+                0x000000000008003c        0x4 LONG 0x44 ABSOLUTE (vException_UnalignedAccess)
+                0x0000000000080040        0x4 LONG 0x44 ABSOLUTE (vException_IllegalInstruction)
+                0x0000000000080044        0x4 LONG 0x44 ABSOLUTE (vException_SysCall)
+                0x0000000000080048        0x4 LONG 0x44 ABSOLUTE (vException_Trap)
+                0x000000000008004c        0x4 LONG 0x44 ABSOLUTE (vException_StackOverflow)
+
+.vsr_handlers   0x0000000000080050       0xaa
+ *(.vsr_handlers)
+ .vsr_handlers  0x0000000000080050       0xaa /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libBoot_JN516x.a(ExceptionHandler.o)
+                0x0000000000080050                _exception_external_interrupt
+                0x00000000000800f8                _default_vsr_dummy
+
+.rodata         0x00000000000800fc      0x6d4
+ *(.rodata*)
+ .rodata.str1.1
+                0x00000000000800fc      0x204 /tmp/ccVrSdpF.ltrans0.ltrans.o
+                                        0x207 (size before relaxing)
+ .rodata        0x0000000000080300       0x1c /tmp/ccVrSdpF.ltrans0.ltrans.o
+                0x0000000000080300                au32UartAddrOffset
+ .rodata        0x000000000008031c        0x4 /tmp/ccVrSdpF.ltrans1.ltrans.o
+ .rodata        0x0000000000080320       0x1c /tmp/ccVrSdpF.ltrans2.ltrans.o
+                0x0000000000080320                psTamXcvContext
+ .rodata        0x000000000008033c       0xd4 /tmp/ccVrSdpF.ltrans3.ltrans.o
+                0x000000000008033c                s_aprScanHandleEvt.10614
+                0x000000000008036c                apvActionCalls
+                0x00000000000803f4                aprLPBMacVectorRamTable
+                0x0000000000080408                psTamMacContext
+                0x000000000008040c                psTAMcontext
+ .rodata.str1.1
+                0x0000000000080410        0x7 /tmp/ccVrSdpF.ltrans4.ltrans.o
+ .rodata        0x0000000000080417      0x131 /tmp/ccVrSdpF.ltrans4.ltrans.o
+ .rodata.str1.1
+                0x0000000000080548       0x11 /tmp/ccVrSdpF.ltrans5.ltrans.o
+                                         0x22 (size before relaxing)
+ *fill*         0x0000000000080559        0x3 00
+ .rodata        0x000000000008055c       0x38 /tmp/ccVrSdpF.ltrans5.ltrans.o
+                0x000000000008055c                asStateFuncTbl.2563
+ .rodata.str1.1
+                0x0000000000080594       0x70 /tmp/ccVrSdpF.ltrans6.ltrans.o
+ .rodata        0x0000000000080604       0x19 /tmp/ccVrSdpF.ltrans7.ltrans.o
+                0x0000000000080604                gbHighPowerMode
+                0x0000000000080605                gu8ModuleID
+ *fill*         0x000000000008061d        0x3 00
+ .rodata        0x0000000000080620       0x1c /tmp/ccVrSdpF.ltrans8.ltrans.o
+ .rodata        0x000000000008063c        0x6 /tmp/ccVrSdpF.ltrans9.ltrans.o
+                0x000000000008063c                aeXcvPhyEvtToScanEvt.5394.10617
+ .rodata        0x0000000000080642        0xa /tmp/ccVrSdpF.ltrans10.ltrans.o
+ .rodata        0x000000000008064c       0x9a /tmp/ccVrSdpF.ltrans11.ltrans.o
+ .rodata.str1.1
+                0x00000000000806e6       0x32 /tmp/ccVrSdpF.ltrans12.ltrans.o
+ .rodata        0x0000000000080718       0x28 /tmp/ccVrSdpF.ltrans13.ltrans.o
+                0x0000000000080718                CSWTCH.35.20878.20878
+                0x000000000008072c                au32TimerBaseAddress
+ .rodata.str1.1
+                0x0000000000080740       0x11 /tmp/ccVrSdpF.ltrans15.ltrans.o
+ *fill*         0x0000000000080751        0x3 00
+ .rodata        0x0000000000080754       0x7c /tmp/ccVrSdpF.ltrans15.ltrans.o
+                0x0000000000080788                u32MacLow_TOCOS
+                0x000000000008078c                u32MacHigh_TOCOS
+
+.text           0x00000000000807d0     0xab06
+ *(.text*)
+ .text          0x00000000000807d0      0xdc0 /tmp/ccVrSdpF.ltrans0.ltrans.o
+                0x00000000000807d0                ToCoNet_vMain
+ .text          0x0000000000081590      0xaf9 /tmp/ccVrSdpF.ltrans1.ltrans.o
+                0x0000000000081590                vTACintRXheader
+                0x0000000000081d8b                eGenRxHdrDone.10265
+                0x0000000000081d9b                SERIAL_bTxChar
+                0x0000000000081e48                eAppApiDefPlmeSet
+                0x0000000000081ea1                _ToCoNet_bRfChChannel
+                0x0000000000081f08                vAppApiDefMcpsRequest
+                0x0000000000081f33                vAppApiDefMlmeRequest
+                0x0000000000081f5e                pvAppApiDefGetMacHandle
+                0x0000000000081f67                vTAMCOstartBeacon
+                0x0000000000081fa3                vStartStoreValues.12921
+                0x000000000008205a                bStartCallback.12950
+ .text.unlikely
+                0x0000000000082089       0x1d /tmp/ccVrSdpF.ltrans1.ltrans.o
+                0x0000000000082089                Mac_vReset
+ *fill*         0x00000000000820a6        0x2 00
+ .text          0x00000000000820a8      0xa9c /tmp/ccVrSdpF.ltrans2.ltrans.o
+                0x00000000000820a8                vTAMDEstartSync
+                0x0000000000082127                eTAMselect
+                0x0000000000082268                MAC_pvCtor
+                0x0000000000082683                u32AppApiDefInit
+                0x0000000000082738                _ToCoNet_vMacInit
+                0x000000000008279e                _ToCoNet_vRfConfig
+                0x00000000000828ee                vProcessEvCoreMac
+                0x0000000000082955                vDeterminePowerState.13520
+                0x00000000000829d9                vTAMDEint1FiredTrackingBeacon
+                0x0000000000082a79                vTAMDEint2FiredTrackingDR
+                0x0000000000082a9e                vTAMDEframeTXtrackingDR
+                0x0000000000082af7                vTAMDEint2FiredPollActive
+                0x0000000000082b2b                vTAMDEreqTXnullTrackingCAP
+ .text          0x0000000000082b44      0xba0 /tmp/ccVrSdpF.ltrans3.ltrans.o
+                0x0000000000082b44                eWBRTTxDone.10271
+                0x0000000000082b62                vTAMCOframeTXgoingIdle
+                0x0000000000082b7b                vTAMCOframeTXcap
+                0x0000000000082b9f                eWCoRRxDone.10262
+                0x0000000000082c49                eWBcnRxDone.10274
+                0x0000000000083232                vTAMCOframeRXcap
+                0x0000000000083244                vTAMCOframeRXgoingIdle
+                0x000000000008325a                vTAMCOframeRXnobeacon
+                0x000000000008326c                vTAMDEframeRX
+                0x0000000000083294                vTAMDEframeRXtrackingDR
+                0x00000000000832d7                vTAMDEframePreSyncReq
+                0x00000000000832ef                vTAMCOframeTXbeacon
+                0x00000000000833b6                vTAMDEframeRXsyncReq
+                0x0000000000083605                vTAMDEint1FiredTrackingCAPgts
+                0x00000000000836b6                eWONTTxDone.10268
+ .text          0x00000000000836e4      0xce2 /tmp/ccVrSdpF.ltrans4.ltrans.o
+                0x00000000000836e4                mac_vLPBAdjustBeaconOffset
+                0x0000000000083741                mac_u32LPBGetBeaconTimeout
+                0x000000000008374a                eWEnDTmrExpiry.10255
+                0x0000000000083755                eWEnDEdDone.10252
+                0x00000000000837b0                eGenlDontCare.10249
+                0x00000000000837b5                eGenlIllegal.9874
+                0x00000000000837bc                u32GetTimer0
+                0x00000000000837c3                vSetTimer0
+                0x00000000000837d2                SPRINTF_bPutChar.4764
+                0x0000000000083944                vHandlerPatch.4477
+                0x000000000008397b                u8HwEventHandler.1874
+                0x000000000008399a                vTACu32ToPayloadM
+                0x00000000000839b2                bTACframeInProgress
+                0x00000000000839dc                bTACassessBeaconForPayload
+                0x0000000000083a2d                bIsBbcSafeForTx
+                0x0000000000083a62                vTATwriteAclMaterialToHardware
+                0x0000000000083a87                vTATsetBLE
+                0x0000000000083abe                vTATgetFramePayload
+                0x0000000000083adb                eTATreadTXstatus
+                0x0000000000083b21                vTAHsetPhyStateDirect.part.0.14739
+                0x0000000000083b3d                vMEMreturn
+                0x0000000000083bae                vTACinformOriginator
+                0x0000000000083bd0                pvMEMget
+                0x0000000000083bfc                vTAMDEdetermineNullState
+                0x0000000000083c16                vTAMCOupdatePendingList
+                0x0000000000083ce8                vTAMCOsetCoordinator
+                0x0000000000083d0e                vPhySetChannel
+                0x0000000000083d27                eScanHandleEvt.part.0.10285
+                0x0000000000083d50                mac_eDcfmIndPost
+                0x0000000000083d71                mac_psDcfmIndGetBuf
+                0x0000000000083d92                vMLMErxEnableConfirm
+                0x0000000000083dc4                vMLMEcommStatus
+                0x0000000000083e27                vMLMEcommStatusFromFrame
+                0x0000000000083e6b                vMLMEsyncLoss
+                0x0000000000083e9e                vPMICpostFailedAssocDcfm
+                0x0000000000083ed6                vPMICassocReqTO_2.8702
+                0x0000000000083eed                MAC_vPibSetPanId
+                0x0000000000083f08                vHandleTofRequest.6808
+                0x0000000000083f0b                vAppApiDefSetPrbsSeed
+                0x0000000000083f2f                vfPrintf
+                0x00000000000840da                u8CCITT8
+                0x0000000000084100                Mac_vInit
+                0x000000000008414c                bAES_CCM_KeyReg
+                0x000000000008418b                bFifoPush.3204
+                0x00000000000841c4                vAppQApiPostMlme.3190
+                0x00000000000841e3                vAppQApiPostMcps.3197
+                0x00000000000841fe                pvFifoPull.3201
+                0x0000000000084225                psAppQApiGetMlmeBuffer.3187
+                0x000000000008422d                psAppQApiGetMcpsBuffer.3194
+                0x0000000000084235                ToCoNet_vReg_mod_TxRxQueueMid
+                0x00000000000842b6                PRSEV_vSetState
+                0x00000000000842c6                PRSEV_u8Register
+                0x00000000000842f8                PRSEV_vProcessEv_core.1670
+                0x0000000000084394                PRSEV_vProcessEvPost
+ .text.unlikely
+                0x00000000000843c6       0x1e /tmp/ccVrSdpF.ltrans4.ltrans.o
+                0x00000000000843c6                _PRSEV_vProcessEvSingleH
+                0x00000000000843d5                _PRSEV_vProcessEv
+ .text          0x00000000000843e4      0xd3b /tmp/ccVrSdpF.ltrans5.ltrans.o
+                0x00000000000843e4                TSV_eStart
+                0x00000000000844c8                vTAM_TxRetryTimer
+                0x00000000000844d4                eTAStransmitRequest
+                0x000000000008486f                vPMICassocReqTO_1.8695
+                0x00000000000848f7                vTAM_MCPSdataRequest
+                0x000000000008493a                bTACcheckPANconflict
+                0x00000000000849f3                TSV_eOpen
+                0x00000000000849fb                vAppApiDefRestoreMacSettings
+                0x0000000000084acc                vAppApiDefSaveMacSettings
+                0x0000000000084b29                mac_vLPBSleep
+                0x0000000000084b6d                pvAppApiDefGetMacAddrLocation
+                0x0000000000084b76                eAppApiDefPlmeGet
+                0x0000000000084bc8                ToCoNet_ChMgr_bCh_Reconfig
+                0x0000000000084c5d                vHnd_E_STATE_WAIT_TX.2530
+                0x0000000000084cc4                vHnd_E_STATE_PREPARE_TX.2517
+ .text          0x000000000008511f      0x8b2 /tmp/ccVrSdpF.ltrans6.ltrans.o
+                0x000000000008511f                vProcessEvCore.1390
+                0x000000000008519c                bAES_CCM_EncodeKey
+                0x0000000000085249                vTAMRXEsetPhy
+                0x000000000008530c                bAHI_ReadMACID
+                0x0000000000085352                vExpireHead.19823
+                0x0000000000085382                ToCoNet_vInit
+                0x00000000000856ad                vMicroIntEnableOnly.constprop.70
+                0x00000000000856d9                QUEUE__u8RemoveItem
+                0x0000000000085733                QUEUE__vAddItem.constprop.69
+                0x0000000000085765                vHnd_E_STATE_IDLE.2522
+                0x00000000000857ba                vAHI_ProtocolPower.constprop.66
+                0x00000000000857c8                XCV_vCtor.constprop.64
+                0x000000000008592d                vAHI_Sleep
+ .text.unlikely
+                0x00000000000859d1      0x2e5 /tmp/ccVrSdpF.ltrans6.ltrans.o
+                0x0000000000085a8f                bStartXtal32k.20554
+                0x0000000000085b97                u32AppQApiInitInt_PATCH
+                0x0000000000085ba6                ToCoNet_bMacTxReq
+ .text          0x0000000000085cb6      0xa4b /tmp/ccVrSdpF.ltrans7.ltrans.o
+                0x0000000000085cb6                UART_vHandleUartInterrupt.4602
+                0x0000000000085d41                SERIAL_vTxReady
+                0x0000000000085d79                vAppQApiPostHwIntT.3183
+                0x0000000000085df6                vRxChar.4502
+                0x0000000000085e47                vXCV_IntHandlerPhy
+                0x0000000000085ef9                vScanHandleTimer.9871
+                0x0000000000085efe                vXCV_IntHandlerBbc
+                0x0000000000085fa1                ToCoNet_vMacStart
+                0x0000000000085fba                cbAppWarmStart.part.4.1431
+                0x0000000000085fe1                u8TAM_AES_WriteAuxilliarySecurityHeaderIntoBuffer
+                0x0000000000086053                phy_ePibSet.part.1.12081
+                0x000000000008609b                u32AHI_ReadIndexSectorBits.constprop.6
+                0x00000000000860fc                vTAIsetCapTime
+                0x000000000008611d                vTAIsetRxEnableTime
+                0x000000000008613e                vDoGoActive.16562
+                0x0000000000086160                vTAMRXEint2Fired
+                0x0000000000086196                vMLMEbeaconNotify
+                0x00000000000862f4                ToCoNet_u32GetRand
+                0x0000000000086352                vHnd_E_STATE_RUNNING.2538
+                0x000000000008654d                vMCPSframeReceived
+                0x0000000000086610                vTAHsetPhyState
+                0x0000000000086641                vTAMCOint2Fired
+                0x0000000000086661                vSetPHYfromMacValue.13396
+                0x0000000000086693                vTAMDEint1FiredWaitDR
+                0x00000000000866a0                vTACsetPHYfromMacValue
+                0x00000000000866c1                vTAMRXEsetReceiveForPibChange
+ .text          0x0000000000086701      0xac4 /tmp/ccVrSdpF.ltrans8.ltrans.o
+                0x0000000000086716                vProcessSnsObj_ADC.1590
+                0x0000000000086ad2                vTimerCallback.20530
+                0x0000000000086add                vProcessEvCoreTx.2499
+                0x0000000000086bc7                bAHI_SetClockRate
+                0x0000000000086cd2                vAHI_DioSetPullup.constprop.61
+                0x0000000000086ce6                vAHI_WakeTimerEnable.part.0.21194.constprop.58
+                0x0000000000086d2b                mac_vLPBStartTimer
+                0x0000000000086e10                vSnsObj_Process.constprop.48
+                0x0000000000086e4e                bAES_CCMstar
+                0x0000000000086f1a                pvHeap_Alloc
+                0x0000000000086f1d                u32AHI_Init
+                0x0000000000086fdf                vMicroIntRestoreState
+                0x0000000000086feb                vAHI_TickTimerIntEnable
+                0x0000000000087046                u8AHI_WakeTimerFiredStatus
+                0x000000000008705a                vAHI_WakeTimerStop.part.3.21210
+                0x000000000008707a                mac_vLPBStopTimer
+                0x0000000000087084                vAHI_UartSetRTSCTS.part.15.20991
+                0x00000000000870ab                vAHI_UartReset.part.4.20964
+                0x00000000000870e3                vAHI_UartSetControl.part.2.20948
+                0x0000000000087134                vAHI_UartSetBaudDivisor.part.1.20944
+                0x0000000000087173                vAHI_WatchdogStop
+                0x000000000008718a                vAHI_CpuDoze
+                0x000000000008719d                vAHI_DioSetOutput
+                0x00000000000871b1                vAHI_DioSetDirection
+ .text.unlikely
+                0x00000000000871c5       0x97 /tmp/ccVrSdpF.ltrans8.ltrans.o
+                0x00000000000871c5                vAHI_TimerEnable.part.1.20745.constprop.17
+                0x0000000000087230                vAHI_TickTimerConfigure
+                0x000000000008724b                vStartXtal32kExternalRc.20544
+ *fill*         0x000000000008725c        0x0 00
+ .text          0x000000000008725c      0xa40 /tmp/ccVrSdpF.ltrans9.ltrans.o
+                0x000000000008725c                vPostDcfm.10258
+                0x0000000000087330                AppWarmStart
+                0x00000000000873bb                vSetNextChannel.10306
+                0x0000000000087414                MAC_vHandleMlmeReqRsp
+                0x0000000000087bc5                vTAMDEint1FiredTracking
+                0x0000000000087c35                vTAMDEint1FiredSyncReq
+ .text          0x0000000000087c9c      0xa65 /tmp/ccVrSdpF.ltrans10.ltrans.o
+                0x0000000000087dfc                bTAM_AES_CCMstarPatch
+                0x0000000000087f40                bTAM_AES_CCMstarPatch2006
+                0x000000000008821f                bTATsendFrame
+                0x0000000000088272                vTrySendFromDirectCAP.12853
+                0x000000000008828d                vTrySendFromDirectNoBeacon.12857
+                0x00000000000882b8                vTAMCOint1Fired
+                0x00000000000883d4                vTAMCOint1FiredCAP
+                0x0000000000088446                vTAMCOreqTXnoBeacon
+                0x0000000000088457                vTAMCOreqTXinCAP
+                0x000000000008847d                vTrySendUnslotted.13398
+                0x0000000000088497                bSendDataRequest.13400
+                0x00000000000885a9                bProcessBeaconRX.13403
+                0x000000000008867a                cbAppColdStart.part.5.1464
+ .text          0x0000000000088701      0xad4 /tmp/ccVrSdpF.ltrans11.ltrans.o
+                0x0000000000088701                vAHI_IntHandlerAnalogPeriph
+                0x0000000000088721                vTTIBLETimerExpired
+                0x000000000008872c                vACI_CmdWaitBusy
+                0x0000000000088790                vACI_OptimisedCcmStar
+                0x00000000000889a8                vTAIdisableInterrupt
+                0x00000000000889c1                vUpdateRegisters.19868
+                0x0000000000088a08                psRemove.part.0.19818
+                0x0000000000088a37                vMAC_MISCpollConfirm
+                0x0000000000088a68                MAC_u8AclFindInfo
+                0x0000000000088b92                vTASretrieveSecurity
+                0x0000000000088bb4                MAC_bLookUpKeyDescriptor.17370
+                0x0000000000088c2e                u8TSCframeIncrease
+                0x0000000000088c67                vTSCpostTransmitUpdate
+                0x0000000000088c97                vCopyToDataFromMacAddr.17280
+                0x0000000000088cca                bTSCgetOutgoingInfo
+                0x0000000000088dd3                vDoGoOff.16560
+                0x0000000000088ded                psTAQsearchFifo
+                0x0000000000088e36                bTAQremoveFromFifo
+                0x0000000000088e73                vTTITransactionTimerExpired
+                0x0000000000088e9c                vTAMinsertEvent
+                0x0000000000088f02                vTTITimer2Expired
+                0x0000000000088f06                vTTITimer1Expired
+                0x0000000000088f0a                vTAM_TxRetryTimeout
+                0x0000000000088f0e                vTACsetTxFrameDefaults
+                0x0000000000088f34                u8TACgetHeaderSize
+                0x0000000000088f71                bUpdateTime.15598
+                0x0000000000088fac                vTACbuildBeacon
+                0x00000000000891b4                u32TACpayloadToU32M
+ .text          0x00000000000891d5      0x6b3 /tmp/ccVrSdpF.ltrans12.ltrans.o
+                0x00000000000891d5                bAES_CCM_DecodeKey
+                0x0000000000089291                vHnd_E_STATE_FINISH_TX_FAIL.2507
+                0x0000000000089355                vHnd_E_STATE_FINISH_TX_SUCCESS.2512
+                0x00000000000893f6                vInitHardware.isra.3.1459
+ .text.unlikely
+                0x0000000000089888       0x69 /tmp/ccVrSdpF.ltrans12.ltrans.o
+                0x0000000000089888                SERIAL_vFlush
+ *fill*         0x00000000000898f1        0x3 00
+ .text.unlikely
+                0x00000000000898f4      0x56c /tmp/ccVrSdpF.ltrans13.ltrans.o
+                0x00000000000898f4                ToCoNet_vStart
+ .text          0x0000000000089e60      0x780 /tmp/ccVrSdpF.ltrans14.ltrans.o
+                0x0000000000089e60                eGenTmrExpiry.10567
+                0x0000000000089ea2                eWEDTEdDone.10570
+                0x0000000000089ec6                TSV_eStop
+                0x0000000000089f84                bPMICdisassocReqSent.8691
+                0x000000000008a03e                MAC_vHandleMcpsReqRsp
+                0x000000000008a0cb                bMCPSframeTXcomplete.11302
+                0x000000000008a120                bSendSyncLoss.15533
+                0x000000000008a138                bPollReqSent.19129
+                0x000000000008a150                bTASsendCommStatusInd
+                0x000000000008a165                bAssocRespSent.8687
+                0x000000000008a178                eTACprocessFrameTXcomplete
+                0x000000000008a2f5                vTAMCOframeTXnobeacon
+                0x000000000008a30a                vTAMCOframeStarting
+                0x000000000008a324                vTAMDEframeTXDEnull
+                0x000000000008a347                vTAMDEframeTXtrackingCAPgts
+                0x000000000008a373                bPMICassocReqSent.8683
+                0x000000000008a3f5                bPMICassocReqPollSent.8698
+                0x000000000008a449                eWChCChanChgd.10282
+ .text          0x000000000008a5e0      0x531 /tmp/ccVrSdpF.ltrans15.ltrans.o
+                0x000000000008a5e0                AppColdStart
+ .text          0x000000000008ab11       0x25 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcmp.o)
+                0x000000000008ab11                memcmp
+ .text          0x000000000008ab36       0x19 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcpy.o)
+ .text          0x000000000008ab4f       0x12 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memset.o)
+                0x000000000008ab4f                memset
+ *fill*         0x000000000008ab61        0x3 00
+ .text          0x000000000008ab64      0x204 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__udivsi3.o)
+                0x000000000008ab64                __udivsi3
+ .text          0x000000000008ad68       0x30 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__divsi3.o)
+                0x000000000008ad68                __divsi3
+ .text          0x000000000008ad98      0x1b0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__umodsi3.o)
+                0x000000000008ad98                __umodsi3
+ .text          0x000000000008af48      0x350 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(_udivdi3.o)
+                0x000000000008af48                __udivdi3
+ .text          0x000000000008b298       0x27 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libHardwareApi_JN516x.a(AHI_Interrupt.o)
+                0x000000000008b298                vAHI_InterruptSetPriority
+                0x000000000008b2b6                vAHI_InterruptSetActivePriorityLevel
+ .text.vMicroSyscall
+                0x000000000008b2bf       0x17 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMicroSpecific_JN516x.a(MicroSyscall_ba.o)
+                0x000000000008b2bf                vMicroSyscall
+                0x000000000008b2d6                _flash_end = ABSOLUTE (.)
+
+.rela.dyn       0x000000000008b2d8        0x0
+ .rela.text     0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans0.ltrans.o
+ .rela.rodata   0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans0.ltrans.o
+ .rela.text.unlikely
+                0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans0.ltrans.o
+ .rela.data     0x0000000000000000        0x0 /tmp/ccVrSdpF.ltrans0.ltrans.o
+                0x000000000400004c                . = ORIGIN (ram)
+
+.data           0x000000000400004c       0x14 load address 0x000000000008b2d8
+                0x000000000400004c                _ram_data_start = ABSOLUTE (.)
+ *(.data*)
+ .data          0x000000000400004c        0x4 /tmp/ccVrSdpF.ltrans0.ltrans.o
+ .data          0x0000000004000050        0x1 /tmp/ccVrSdpF.ltrans2.ltrans.o
+ .data.initinboot
+                0x0000000004000051        0x1 /tmp/ccVrSdpF.ltrans2.ltrans.o
+                0x0000000004000051                gMAC_u8MaxBuffers
+ .data          0x0000000004000052        0x1 /tmp/ccVrSdpF.ltrans5.ltrans.o
+                0x0000000004000052                u8TxWkrNow.2640
+ *fill*         0x0000000004000053        0x1 00
+ .data.initinboot
+                0x0000000004000054        0x8 /tmp/ccVrSdpF.ltrans6.ltrans.o
+ .data          0x000000000400005c        0x4 /tmp/ccVrSdpF.ltrans8.ltrans.o
+                0x000000000400005c                u32HeapStart
+ *(.data.*)
+                0x0000000004000060                . = ALIGN (0x4)
+                0x0000000004000060                _ram_data_end = ABSOLUTE (.)
+
+.bss            0x0000000004000060     0x19cc load address 0x000000000008b2ec
+                0x0000000004000060                _bss_start = ABSOLUTE (.)
+ *(.bss*)
+ .bss           0x0000000004000060      0x118 /tmp/ccVrSdpF.ltrans0.ltrans.o
+                0x0000000004000060                sMcpsIndQueue.3422
+                0x0000000004000070                bRxQueue_Init.4348
+                0x0000000004000071                u8AppId_Pkt_head.4350
+                0x0000000004000074                u32AppId.4346
+                0x0000000004000078                sMcpsIndBufferQueue.3420
+                0x0000000004000088                sMlmeIndQueue.3423
+                0x0000000004000098                sMlmeIndBufferQueue.3421
+                0x00000000040000a8                sHwIndQueue.3424
+                0x00000000040000b8                sHwIndBufferQueue.3425
+                0x00000000040000c8                sOpt.4653
+                0x00000000040000d8                asSerialPorts
+                0x0000000004000110                sSerPort
+                0x0000000004000128                u8sprintf_idx.4811
+                0x000000000400012c                au8sprintf.4810
+                0x0000000004000130                SPRINTF_Stream
+                0x0000000004000134                sSerStream
+                0x000000000400013c                sAppData.1523
+ .bss           0x0000000004000178       0x28 /tmp/ccVrSdpF.ltrans1.ltrans.o
+                0x0000000004000178                asUARTS.4646
+ .bss           0x00000000040001a0       0x20 /tmp/ccVrSdpF.ltrans2.ltrans.o
+                0x00000000040001a0                g_sXcv
+                0x00000000040001a4                prMcpsRequest.5695
+                0x00000000040001a8                prMlmeRequest.5694
+                0x00000000040001ac                prOriginalHandler.4481
+ .bss.initinboot
+                0x00000000040001c0        0x8 /tmp/ccVrSdpF.ltrans2.ltrans.o
+                0x00000000040001c0                g_u32MacAddrLocation
+                0x00000000040001c4                prvUserTxStartedCallback
+ .bss           0x00000000040001c8       0x40 /tmp/ccVrSdpF.ltrans3.ltrans.o
+                0x00000000040001c8                g_sLP
+                0x0000000004000204                g_pvMac
+ .bss.initinboot
+                0x0000000004000208      0x1c0 /tmp/ccVrSdpF.ltrans3.ltrans.o
+                0x0000000004000208                g_sMac
+ .bss           0x00000000040003c8      0xb00 /tmp/ccVrSdpF.ltrans4.ltrans.o
+ .bss           0x0000000004000ec8       0x30 /tmp/ccVrSdpF.ltrans5.ltrans.o
+                0x0000000004000ec8                u32MyAddr.4349
+                0x0000000004000ecc                asTx.2597
+ .bss.initinboot
+                0x0000000004000ef8        0x1 /tmp/ccVrSdpF.ltrans5.ltrans.o
+ *fill*         0x0000000004000ef9        0x3 00
+ .bss           0x0000000004000efc      0x724 /tmp/ccVrSdpF.ltrans6.ltrans.o
+                0x0000000004000efc                bForceInitialize.2599
+                0x0000000004000f00                prApAppCallback.20359
+                0x0000000004000f04                prSpiAppCallback.20518
+                0x0000000004000f08                prSiAppCallback.21713
+                0x0000000004000f0c                prAppMcpsCallback.3426
+                0x0000000004000f10                prAppMlmeCallback.3427
+                0x0000000004000f14                gbTimeOutFlag.20717
+                0x0000000004000f15                bTxEventQueued.16428
+                0x0000000004000f16                u8TxEventStatus.16429
+ .bss.initinboot
+                0x0000000004001620        0x4 /tmp/ccVrSdpF.ltrans6.ltrans.o
+                0x0000000004001620                prSysCtrlAppCallback.20721
+ .bss.dontinitinboot
+                0x0000000004001624        0x8 /tmp/ccVrSdpF.ltrans6.ltrans.o
+ .bss           0x000000000400162c       0x20 /tmp/ccVrSdpF.ltrans7.ltrans.o
+                0x000000000400162c                TxWorker_u8Num.2598
+                0x0000000004001630                sAppHousekeeping
+                0x0000000004001648                prAppHwCallback.3428
+ .bss           0x000000000400164c        0x8 /tmp/ccVrSdpF.ltrans8.ltrans.o
+ .bss.dontinitinboot
+                0x0000000004001654        0x4 /tmp/ccVrSdpF.ltrans8.ltrans.o
+ .bss           0x0000000004001658       0x74 /tmp/ccVrSdpF.ltrans9.ltrans.o
+                0x0000000004001658                bWakeupByButton.1551
+                0x000000000400165c                sToCoNet_AppContext
+                0x0000000004001678                sToCoNet_Context
+                0x00000000040016bc                sAssocSecurity.9312
+                0x00000000040016c8                g_bJenieBackwardsCompatibilityMode
+ .bss           0x00000000040016cc       0x8c /tmp/ccVrSdpF.ltrans10.ltrans.o
+                0x00000000040016cc                SPRINTF_MAX_BUFF.4812
+ .bss.dontinitinboot
+                0x0000000004001758        0x1 /tmp/ccVrSdpF.ltrans10.ltrans.o
+ .bss           0x0000000004001759        0x1 /tmp/ccVrSdpF.ltrans11.ltrans.o
+                0x0000000004001759                u8TAM_TxStatusOverride
+ *fill*         0x000000000400175a        0x2 00
+ .bss           0x000000000400175c       0x94 /tmp/ccVrSdpF.ltrans12.ltrans.o
+                0x000000000400175c                prUart1AppCallback.21185
+                0x0000000004001760                prUart0AppCallback.21184
+                0x0000000004001764                bIntEnableFlag.20356
+ .bss           0x00000000040017f0      0x150 /tmp/ccVrSdpF.ltrans13.ltrans.o
+                0x00000000040017f0                psRxQueueList.4347
+                0x0000000004001804                prTickTimeAppCallback
+                0x0000000004001808                apfTimerAppCallback.20930
+                0x000000000400181c                au16TimerSettings.20879
+                0x0000000004001828                asEventHandler.1733
+                0x00000000040018a8                sEvVars
+                0x00000000040018c4                u32TickCount_ms
+                0x00000000040018c8                au8Txdatabuff_idx_sTxQueue
+                0x00000000040018cc                u8TxBuffSiz_sTxQueue
+                0x00000000040018d0                sTxdatabuff_sTxQueue
+                0x00000000040018d4                sTxQueue
+                0x00000000040018f0                au8Rxdatabuff_idx_sRxQueue
+                0x00000000040018f4                u8RxBuffSiz_sRxQueue
+                0x00000000040018f8                sRxdatabuff_sRxQueue
+                0x00000000040018fc                sRxQueue
+                0x0000000004001918                au8Rxdatabuff_idx_sRxQueueCmd
+                0x000000000400191c                u8RxBuffSiz_sRxQueueCmd
+                0x0000000004001920                sRxdatabuff_sRxQueueCmd
+                0x0000000004001924                sRxQueueCmd.2171
+ .bss           0x0000000004001940       0x14 /tmp/ccVrSdpF.ltrans14.ltrans.o
+                0x0000000004001940                s_sTimerList
+                0x0000000004001950                u8AssocResponsesInProgress.9311
+ .bss           0x0000000004001954       0x98 /tmp/ccVrSdpF.ltrans15.ltrans.o
+                0x0000000004001954                sContext.4471
+                0x0000000004001980                sToCoNet_Modules
+ .bss.dontinitinboot
+                0x00000000040019ec       0x40 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libBoot_JN516x.a(ExceptionHandler.o)
+                0x00000000040019ec                isr_handlers
+ *(.bss.*)
+ *(.scommon*)
+ *(.scommon.*)
+ *(COMMON)
+                0x0000000004001a2c                . = ALIGN (0x4)
+                0x0000000004001a2c                _bss_end = ABSOLUTE (.)
+
+.heap           0x0000000004001a2c      0xd16 load address 0x000000000008ccb8
+                0x0000000004001a2c                _heap_start = ABSOLUTE (.)
+                0x0000000004002742                . = (. + _minimum_heap_size)
+ *fill*         0x0000000004001a2c      0xd16 00
+
+.stack          0x0000000004007800      0x800 load address 0x0000000000092a8c
+                0x0000000004007800                _heap_end = ABSOLUTE (.)
+                0x0000000004007800                _stack_low_water_mark = ABSOLUTE (.)
+                0x0000000004008000                . = (. + _stack_size)
+ *fill*         0x0000000004007800      0x800 00
+
+.test           0x000000000008b2ec        0x1
+                0x000000000008b2ec        0x1 BYTE 0xff
+                0x000000000008b2d8                _flash_data_start = LOADADDR (.data)
+                0x0000000000000014                _ram_data_len = (((_ram_data_end - _ram_data_start) + 0x3) & 0xfffffffffffffffc)
+                0x00000000000019cc                _bss_len = (((_bss_end - _bss_start) + 0x3) & 0xfffffffffffffffc)
+                0x000000000000b2ec                _image_len = ((((_flash_end - _flash_start) + _ram_data_len) + 0x3) & 0xfffffffffffffffc)
+                0x0000000004008000                _ram_top = (ABSOLUTE (ORIGIN (ram)) + 0x7fb4)
+                0x0000000004008000                ram_top = (ABSOLUTE (ORIGIN (ram)) + 0x7fb4)
+                0x0000000001001580                _app_ram_start = 0x1001580
+                0x000000000400005c                PROVIDE (_heap_location, u32HeapStart)
+                0x000000000400005c                PROVIDE (heap_location, u32HeapStart)
+                0x00000000000849f3                TSV_eOpenVector = TSV_eOpen
+                0x00000000000843e4                TSV_eStartVector = TSV_eStart
+                0x0000000000089ec6                TSV_eStopVector = TSV_eStop
+                0x0000000000081f5e                pvAppApiGetMacHandle = pvAppApiDefGetMacHandle
+                0x0000000000082683                u32AppApiInit = u32AppApiDefInit
+                0x0000000000081f33                vAppApiMlmeRequest = vAppApiDefMlmeRequest
+                0x0000000000081f08                vAppApiMcpsRequest = vAppApiDefMcpsRequest
+                0x0000000000081e48                eAppApiPlmeSet = eAppApiDefPlmeSet
+                0x0000000000084b76                eAppApiPlmeGet = eAppApiDefPlmeGet
+                0x0000000000084b6d                pvAppApiGetMacAddrLocation = pvAppApiDefGetMacAddrLocation
+                0x0000000000084acc                vAppApiSaveMacSettings = vAppApiDefSaveMacSettings
+                0x00000000000849fb                vAppApiRestoreMacSettings = vAppApiDefRestoreMacSettings
+OUTPUT(objs_BLUE/twepower_Server_BLUE_L1200_V0-1-5.elf elf32-ba)
+
+.comment        0x0000000000000000       0x11
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans0.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans1.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans2.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans3.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans4.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans5.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans6.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans7.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans8.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans9.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans10.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans11.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans12.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans13.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans14.ltrans.o
+ .comment       0x0000000000000000       0x12 /tmp/ccVrSdpF.ltrans15.ltrans.o
+ .comment       0x0000000000000000       0x12 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcmp.o)
+ .comment       0x0000000000000000       0x12 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcpy.o)
+ .comment       0x0000000000000000       0x12 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memset.o)
+ .comment       0x0000000000000000       0x12 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(_udivdi3.o)
+ .comment       0x0000000000000000       0x11 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libMicroSpecific_JN516x.a(MicroSyscall_ba.o)
+                                         0x12 (size before relaxing)
+
+.debug_info     0x0000000000000000      0xbcf
+ .debug_info    0x0000000000000000       0xf3 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcmp.o)
+ .debug_info    0x00000000000000f3      0x106 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcpy.o)
+ .debug_info    0x00000000000001f9       0xd7 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memset.o)
+ .debug_info    0x00000000000002d0       0xaf /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__udivsi3.o)
+ .debug_info    0x000000000000037f       0xaf /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__divsi3.o)
+ .debug_info    0x000000000000042e       0xaf /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__umodsi3.o)
+ .debug_info    0x00000000000004dd      0x648 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(_udivdi3.o)
+ .debug_info    0x0000000000000b25       0xaa /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libBoot_JN516x.a(ExceptionHandler.o)
+
+.debug_abbrev   0x0000000000000000      0x36d
+ .debug_abbrev  0x0000000000000000       0x8e /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcmp.o)
+ .debug_abbrev  0x000000000000008e       0xa4 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcpy.o)
+ .debug_abbrev  0x0000000000000132       0x8e /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memset.o)
+ .debug_abbrev  0x00000000000001c0       0x14 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__udivsi3.o)
+ .debug_abbrev  0x00000000000001d4       0x14 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__divsi3.o)
+ .debug_abbrev  0x00000000000001e8       0x14 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__umodsi3.o)
+ .debug_abbrev  0x00000000000001fc      0x15d /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(_udivdi3.o)
+ .debug_abbrev  0x0000000000000359       0x14 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libBoot_JN516x.a(ExceptionHandler.o)
+
+.debug_loc      0x0000000000000000      0xb66
+ .debug_loc     0x0000000000000000       0x73 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcmp.o)
+ .debug_loc     0x0000000000000073       0x39 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcpy.o)
+ .debug_loc     0x00000000000000ac       0x3f /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memset.o)
+ .debug_loc     0x00000000000000eb      0xa7b /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(_udivdi3.o)
+
+.debug_aranges  0x0000000000000000      0x100
+ .debug_aranges
+                0x0000000000000000       0x20 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcmp.o)
+ .debug_aranges
+                0x0000000000000020       0x20 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcpy.o)
+ .debug_aranges
+                0x0000000000000040       0x20 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memset.o)
+ .debug_aranges
+                0x0000000000000060       0x20 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__udivsi3.o)
+ .debug_aranges
+                0x0000000000000080       0x20 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__divsi3.o)
+ .debug_aranges
+                0x00000000000000a0       0x20 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__umodsi3.o)
+ .debug_aranges
+                0x00000000000000c0       0x20 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(_udivdi3.o)
+ .debug_aranges
+                0x00000000000000e0       0x20 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libBoot_JN516x.a(ExceptionHandler.o)
+
+.debug_line     0x0000000000000000     0x1007
+ .debug_line    0x0000000000000000      0x14a /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcmp.o)
+ .debug_line    0x000000000000014a      0x13e /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcpy.o)
+ .debug_line    0x0000000000000288      0x134 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memset.o)
+ .debug_line    0x00000000000003bc      0x47b /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__udivsi3.o)
+ .debug_line    0x0000000000000837       0xbb /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__divsi3.o)
+ .debug_line    0x00000000000008f2      0x3c7 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(__umodsi3.o)
+ .debug_line    0x0000000000000cb9      0x1b7 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(_udivdi3.o)
+ .debug_line    0x0000000000000e70      0x197 /home/itoh/working/twelite/MWSDK/ChipLib/SW4063V1416/Components/Library/libBoot_JN516x.a(ExceptionHandler.o)
+
+.debug_str      0x0000000000000000      0x2de
+ .debug_str     0x0000000000000000      0x114 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcmp.o)
+                                        0x14d (size before relaxing)
+ .debug_str     0x0000000000000114       0x5d /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcpy.o)
+                                        0x161 (size before relaxing)
+ .debug_str     0x0000000000000171       0x49 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memset.o)
+                                        0x14d (size before relaxing)
+ .debug_str     0x00000000000001ba      0x124 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(_udivdi3.o)
+                                        0x1cf (size before relaxing)
+
+.debug_frame    0x0000000000000000       0x60
+ .debug_frame   0x0000000000000000       0x20 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcmp.o)
+ .debug_frame   0x0000000000000020       0x20 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memcpy.o)
+ .debug_frame   0x0000000000000040       0x20 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/../../../../ba-elf/lib/mcpu_jn51xx_sizeopt/libc.a(lib_a-memset.o)
+
+.debug_ranges   0x0000000000000000       0xa0
+ .debug_ranges  0x0000000000000000       0xa0 /home/itoh/working/twelite/MWSDK/Tools/ba-elf-ba2-r36379/bin/../lib/gcc/ba-elf/4.7.4/mcpu_jn51xx_sizeopt/libgcc.a(_udivdi3.o)

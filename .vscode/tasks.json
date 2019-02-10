@@ -3,7 +3,7 @@
     "version": "2.0.0",
     "tasks": [
 	 {
-            "label": "Build twepower,twepower (BLUE)",
+            "label": "Build twepower, Server (BLUE)",
             "type": "shell",
             "windows": {
                 "command": "make",
@@ -23,7 +23,7 @@
                     "TWELITE=BLUE",  "" ]
             },
             "problemMatcher": { "base": "$gcc", "fileLocation": [ "absolute" ] },
-            "options": { "cwd": "${workspaceRoot}/twepower/Build" }
+            "options": { "cwd": "${workspaceRoot}/Server/Build" }
         }
 	, {
             "label": "Build twepower,twepower (RED)",

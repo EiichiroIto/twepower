@@ -17,6 +17,15 @@ extern "C" {
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
 /****************************************************************************/
+#define PORT_RESET 18
+#define PORT_SET 19
+//#define PORT_OUT3 4
+#define PORT_LED 9
+
+#define TWPOWER_HEADER  ":TPszcr"
+#define TWPOWER_HEADER_SIZE 7
+#define TWPOWER_SIZE_POS 3
+#define TWPOWER_CRC_POS 5
 
 /****************************************************************************/
 /***        Type Definitions                                              ***/
