@@ -261,10 +261,9 @@ void cbToCoNet_vRxEvent(tsRxDataApp *pRx) {
 	}
 	vfPrintf(&sSerStream, "C\"]");
 
-	// 打ち返す
 	if (pRx->u8Seq == u16seqPrev) {
 		vfPrintf(&sSerStream, LB "Duplicated Message" LB);
-	} else if (!memcmp(pRx->auData, TWPOWER_HEADER_ID, TWPOWER_HEADER_ID_SIZE)) {
+	} else if (memcmp(pRx->auData, TWPOWER_HEADER_ID, TWPOWER_HEADER_ID_SIZE)) {
 		vfPrintf(&sSerStream, LB "Invalid Message" LB);
 	} else if (!vCheckCRC(pRx->auData, pRx->u8Len)) {
 		vfPrintf(&sSerStream, LB "Invalid CRC" LB);
@@ -503,9 +502,9 @@ static void vSendCommand(char *buf, int size)
 	memcpy(&tsTx.auData[TWPOWER_HEADER_SIZE], buf, size);
 	// データ部CRC
 	uint8 u8crc = u8CCITT8(&tsTx.auData[TWPOWER_HEADER_SIZE], size);
-	vPutHex(&tsTx.auData[TWPOWER_CRC_POS], u8crc);
+	vPutHexByte(&tsTx.auData[TWPOWER_CRC_POS], u8crc);
 	// データ部サイズ
-	vPutHex(&tsTx.auData[TWPOWER_LEN_POS], size);
+	vPutHexByte(&tsTx.auData[TWPOWER_LEN_POS], size);
 
 	// ペイロード長設定
 	tsTx.u8Len = TWPOWER_HEADER_SIZE + size;

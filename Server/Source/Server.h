@@ -33,6 +33,14 @@ typedef enum
 	E_TWPOWER_COMMAND_OFF,
 } teCommand_TWPOWER;
 
+typedef enum
+{
+	E_ADC_INIT = 0x00,
+	E_ADC_START,
+	E_ADC_READY,
+	E_ADC_COMPLETE,
+} teAdcState;
+
 /****************************************************************************/
 /***        Exported Functions                                            ***/
 /****************************************************************************/

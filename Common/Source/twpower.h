@@ -29,7 +29,8 @@ extern "C" {
 /****************************************************************************/
 /***        Exported Functions                                            ***/
 /****************************************************************************/
-void vPutHex(uint8 *buf, int hex);
+void vPutHexByte(uint8 *buf, uint16 hex);
+void vPutHexWord(uint8 *buf, uint16 hex);
 bool_t vCheckCRC(uint8 *buf, int size);
 
 #if defined __cplusplus

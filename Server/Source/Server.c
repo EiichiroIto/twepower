@@ -51,19 +51,22 @@ typedef struct
     uint8 u8channel;
     uint16 u16addr;
 
-    // LED Counter
-    uint32 u32LedCt;
-
     // シーケンス番号
     uint32 u32Seq;
 
     // スリープカウンタ
-	uint32 u32Counter;
+	uint32 u32SleepCounter;
 
 	// ADC
 	tsObjData_ADC sObjADC;	// ADC管理構造体（データ部）
 	tsSnsObj sADC;			// ADC管理構造体（制御部）
-	uint8 u8ADCDone;		// ADC読み込み完了(=1), 送信完了(=2)
+	teAdcState u8AdcState;
+	int16 ai16Volt;
+	int16 ai16Adc1;
+	int16 ai16Adc3;
+
+	// コマンド処理
+	teCommand_TWPOWER u8Command;
 } tsAppData;
 
 /****************************************************************************/
@@ -204,14 +207,35 @@ void cbToCoNet_vMain(void)
 	/* handle uart input */
 	vHandleSerialInput();
 
-	sAppData.u32Counter ++;
-	if (sAppData.u32Counter > 1000) {
-		sAppData.u32Counter = 0;
-		//vfPrintf(&sSerStream, ".");
-		vSleepSec(10);
-	} else if (sAppData.u8ADCDone == 1) {
-		sAppData.u8ADCDone = 2;
+	sAppData.u32SleepCounter ++;
+	if (sAppData.u32SleepCounter > 250) {
+		sAppData.u32SleepCounter = 0;
+		vSleepSec(5);
+	}
+	if (sAppData.u8AdcState == E_ADC_COMPLETE) {
+		vfPrintf(&sSerStream, "adc complete:%d" LB, sAppData.u32SleepCounter);
+		sAppData.u8AdcState = E_ADC_INIT;
 		vBroadcastStatus();
+	}
+	if (sAppData.u8Command != E_TWPOWER_COMMAND_IDLE) {
+		if (sAppData.u8Command == E_TWPOWER_COMMAND_ON) {
+			if (sAppData.u32SleepCounter == 2) {
+				vfPrintf(&sSerStream, "On Start" LB);
+			}
+			if (sAppData.u32SleepCounter == 4) {
+				vfPrintf(&sSerStream, "On Stop" LB);
+				sAppData.u8Command = E_TWPOWER_COMMAND_IDLE;
+			}
+		}
+		if (sAppData.u8Command == E_TWPOWER_COMMAND_OFF) {
+			if (sAppData.u32SleepCounter == 2) {
+				vfPrintf(&sSerStream, "Off Start" LB);
+			}
+			if (sAppData.u32SleepCounter == 4) {
+				vfPrintf(&sSerStream, "Off Stop" LB);
+				sAppData.u8Command = E_TWPOWER_COMMAND_IDLE;
+			}
+		}
 	}
 }
 
@@ -267,16 +291,15 @@ void cbToCoNet_vRxEvent(tsRxDataApp *pRx) {
 	vfPrintf(&sSerStream, "C\"]");
 
 	// 打ち返す
-	if (    pRx->u8Seq != u16seqPrev // シーケンス番号による重複チェック
-		&& !memcmp(pRx->auData, "PING:", 5) // パケットの先頭は PING: の場合
-	) {
+	if (pRx->u8Seq == u16seqPrev) {
+		vfPrintf(&sSerStream, LB "Duplicated Message" LB);
+	} else if (memcmp(pRx->auData, TWPOWER_HEADER_ID, TWPOWER_HEADER_ID_SIZE)) {
+		vfPrintf(&sSerStream, LB "Invalid Message" LB);
+	} else if (!vCheckCRC(pRx->auData, pRx->u8Len)) {
+		vfPrintf(&sSerStream, LB "Invalid CRC" LB);
+	} else {
 		u16seqPrev = pRx->u8Seq;
 		vProcessIncomingData(pRx);
-	} else if (!memcmp(pRx->auData, "PONG:", 5)) {
-		// ＵＡＲＴに出力
-		vfPrintf(&sSerStream, LB "PONG Message from %08x" LB, pRx->u32SrcAddr);
-	} else {
-		vfPrintf(&sSerStream, LB "Other Message" LB);
 	}
 }
 
@@ -318,19 +341,35 @@ void cbToCoNet_vTxEvent(uint8 u8CbId, uint8 bStatus) {
 void cbToCoNet_vHwEvent(uint32 u32DeviceId, uint32 u32ItemBitmap)
 {
     switch (u32DeviceId) {
-    case E_AHI_DEVICE_TICK_TIMER:
-    	break;
-
 	case E_AHI_DEVICE_ANALOGUE:
-		// ADC完了割り込み
-		vSnsObj_Process(&sAppData.sADC, E_ORDER_KICK);
-		if (bSnsObj_isComplete(&sAppData.sADC)) {
-			// 全チャネルの処理が終わった。
-			sAppData.u8ADCDone = 1;
-			vSnsObj_Process(&sAppData.sADC, E_ORDER_KICK);
-			//vSnsObj_Process(&sAppData.sADC, E_ORDER_KICK);
+		u16ADC_ReadReg(&sAppData.sObjADC);
+		break;
 
-			vfPrintf(&sSerStream, LB "ADC Read Complete." LB);
+	case E_AHI_DEVICE_TICK_TIMER:
+		if (sAppData.u8AdcState != E_ADC_INIT) {
+			switch (sAppData.u8AdcState) {
+			case E_ADC_START:
+				vSnsObj_Process(&sAppData.sADC, E_ORDER_KICK);
+				sAppData.u8AdcState = E_ADC_READY;
+				break;
+
+			case E_ADC_READY:
+				vSnsObj_Process(&sAppData.sADC, E_ORDER_KICK);
+				if (bSnsObj_isComplete(&sAppData.sADC)) {
+					sAppData.ai16Volt = sAppData.sObjADC.ai16Result[TEH_ADC_IDX_VOLT];
+					sAppData.ai16Adc1 = sAppData.sObjADC.ai16Result[TEH_ADC_IDX_ADC_1];
+					sAppData.ai16Adc3 = sAppData.sObjADC.ai16Result[TEH_ADC_IDX_ADC_3];
+					sAppData.u8AdcState = E_ADC_COMPLETE;
+					vfPrintf(&sSerStream, LB "ADC Read Complete." LB);
+				}
+				break;
+
+			case E_ADC_COMPLETE:
+				break;
+
+			default:
+				break;
+			}
 		}
 		break;
 
@@ -391,14 +430,9 @@ static void vInitHardware(int f_warm_start)
 	vPortAsOutput(PORT_LED);
 
 	// ADC関係のデータを初期化する
-	//vSnsObj_Init(&sAppData.sADC);
 	vADC_Init(&sAppData.sObjADC, &sAppData.sADC, TRUE);
-	// ハード初期化待ちを行う
-	//vADC_WaitInit();
-	// 計測ポートを設定する
 	sAppData.sObjADC.u8SourceMask = TEH_ADC_SRC_VOLT | TEH_ADC_SRC_ADC_1 | TEH_ADC_SRC_ADC_3;
-	// ADC計測開始
-	vSnsObj_Process(&sAppData.sADC, E_ORDER_KICK);
+	sAppData.u8AdcState = E_ADC_START;
 
 	vfPrintf(&sSerStream, LB "Initialize Hardware complete.");
 }
@@ -543,7 +577,10 @@ static void vProcessEvCore(tsEvent *pEv, teEvent eEvent, uint32 u32evarg) {
  *
  ****************************************************************************/
 static void vBroadcastStatus(void) {
+	int i;
 	tsTxDataApp tsTx;
+
+	vfPrintf(&sSerStream, "%d %d %d" LB, sAppData.ai16Volt, sAppData.ai16Adc1, sAppData.ai16Adc3);
 
 	memset(&tsTx, 0, sizeof(tsTxDataApp));
 
@@ -561,19 +598,18 @@ static void vBroadcastStatus(void) {
 	// ヘッダー部
 	memcpy(tsTx.auData, TWPOWER_HEADER, TWPOWER_HEADER_SIZE);
 	// データ部
-	SPRINTF_vRewind();
-//	vfPrintf(SPRINTF_Stream, "PING: %08X", ToCoNet_u32GetSerial());
-	vfPrintf(SPRINTF_Stream, "ST%04X%04X%04X\n",
-			 sAppData.sObjADC.ai16Result[TEH_ADC_IDX_VOLT],
-			 sAppData.sObjADC.ai16Result[TEH_ADC_IDX_ADC_1],
-			 sAppData.sObjADC.ai16Result[TEH_ADC_IDX_ADC_3]);
-	int size = SPRINTF_u16Length();
-	memcpy(&tsTx.auData[TWPOWER_HEADER_SIZE], SPRINTF_pu8GetBuff(), size);
+	memcpy(&tsTx.auData[TWPOWER_HEADER_SIZE], TWPOWER_CMD_STATUS, TWPOWER_CMD_SIZE);
+	vPutHexWord(&tsTx.auData[TWPOWER_HEADER_SIZE+2], sAppData.ai16Volt);
+	vPutHexWord(&tsTx.auData[TWPOWER_HEADER_SIZE+6], sAppData.ai16Adc1);
+	vPutHexWord(&tsTx.auData[TWPOWER_HEADER_SIZE+10], sAppData.ai16Adc3);
+	tsTx.auData[TWPOWER_HEADER_SIZE+14] = '\n';
+	tsTx.auData[TWPOWER_HEADER_SIZE+15] = '\0';
+	int size = 2+4+4+4+2;
 	// データ部CRC
 	uint8 u8crc = u8CCITT8(&tsTx.auData[TWPOWER_HEADER_SIZE], size);
-	vPutHex(&tsTx.auData[TWPOWER_CRC_POS], u8crc);
+	vPutHexByte(&tsTx.auData[TWPOWER_CRC_POS], u8crc);
 	// データ部サイズ
-	vPutHex(&tsTx.auData[TWPOWER_LEN_POS], size);
+	vPutHexByte(&tsTx.auData[TWPOWER_LEN_POS], size);
 
 	// ペイロード長設定
 	tsTx.u8Len = TWPOWER_HEADER_SIZE + size;
@@ -581,7 +617,18 @@ static void vBroadcastStatus(void) {
 	// 送信
 	ToCoNet_bMacTxReq(&tsTx);
 
-	vfPrintf(&sSerStream, LB "Send: '%s'" LB, &tsTx.auData);
+	vfPrintf(&sSerStream, LB "Send Broadcast(%d): <", tsTx.u8Len);
+	for (i = 0; i < tsTx.u8Len; i++) {
+		if (i < 32) {
+			sSerStream.bPutChar(sSerStream.u8Device,
+					(tsTx.auData[i] >= 0x20 && tsTx.auData[i] <= 0x7f) ? tsTx.auData[i] : '.');
+		} else {
+			vfPrintf(&sSerStream, "..");
+			break;
+		}
+	}
+	vfPrintf(&sSerStream, ">" LB);
+	SERIAL_vFlush(sSerStream.u8Device);
 }
 
 /****************************************************************************
@@ -625,8 +672,12 @@ static void vProcessIncomingData(tsRxDataApp *pRx)
 
 	if (!memcmp(cmd, TWPOWER_CMD_ON, TWPOWER_CMD_SIZE)) {
 		vfPrintf(&sSerStream, LB "On Received" LB);
+		sAppData.u8Command = E_TWPOWER_COMMAND_ON;
+		sAppData.u32SleepCounter = 0;
 	} else if (!memcmp(cmd, TWPOWER_CMD_OFF, TWPOWER_CMD_SIZE)) {
 		vfPrintf(&sSerStream, LB "Off Received" LB);
+		sAppData.u8Command = E_TWPOWER_COMMAND_OFF;
+		sAppData.u32SleepCounter = 0;
 	} else {
 		vfPrintf(&sSerStream, LB "Invalid Command: %s" LB, cmd);
 	}
