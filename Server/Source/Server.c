@@ -80,7 +80,9 @@ static void vInitHardware(int f_warm_start);
 void vSerialInit(uint32 u32Baud, tsUartOpt *pUartOpt);
 static void vHandleSerialInput(void);
 
+static void vShowMessage(uint8 *buf, int size);
 static void vBroadcastStatus(void);
+static void vSendCommand(char *buf, int size);
 static void vSleepSec(int sec);
 static void vProcessIncomingData(tsRxDataApp *pRx);
 
@@ -220,21 +222,33 @@ void cbToCoNet_vMain(void)
 	if (sAppData.u8Command != E_TWPOWER_COMMAND_IDLE) {
 		if (sAppData.u8Command == E_TWPOWER_COMMAND_ON) {
 			if (sAppData.u32SleepCounter == 2) {
-				vfPrintf(&sSerStream, "On Start" LB);
+				vfPrintf(&sSerStream, "Set Start" LB);
+				vPortSetLo(PORT_SET);
 			}
-			if (sAppData.u32SleepCounter == 4) {
-				vfPrintf(&sSerStream, "On Stop" LB);
-				sAppData.u8Command = E_TWPOWER_COMMAND_IDLE;
+			if (sAppData.u32SleepCounter == 6) {
+				vfPrintf(&sSerStream, "Set Stop" LB);
+				vPortSetHi(PORT_SET);
+				sAppData.u8Command = E_TWPOWER_COMMAND_ON_REPLY;
 			}
+		}
+		if (sAppData.u8Command == E_TWPOWER_COMMAND_ON_REPLY) {
+			vSendCommand(TWPOWER_CMD_ON_REPLY, TWPOWER_CMD_SIZE);
+			sAppData.u8Command = E_TWPOWER_COMMAND_IDLE;
 		}
 		if (sAppData.u8Command == E_TWPOWER_COMMAND_OFF) {
 			if (sAppData.u32SleepCounter == 2) {
-				vfPrintf(&sSerStream, "Off Start" LB);
+				vfPrintf(&sSerStream, "Reset Start" LB);
+				vPortSetLo(PORT_RESET);
 			}
-			if (sAppData.u32SleepCounter == 4) {
-				vfPrintf(&sSerStream, "Off Stop" LB);
-				sAppData.u8Command = E_TWPOWER_COMMAND_IDLE;
+			if (sAppData.u32SleepCounter == 6) {
+				vfPrintf(&sSerStream, "Reset Stop" LB);
+				vPortSetHi(PORT_RESET);
+				sAppData.u8Command = E_TWPOWER_COMMAND_OFF_REPLY;
 			}
+		}
+		if (sAppData.u8Command == E_TWPOWER_COMMAND_OFF_REPLY) {
+			vSendCommand(TWPOWER_CMD_OFF_REPLY, TWPOWER_CMD_SIZE);
+			sAppData.u8Command = E_TWPOWER_COMMAND_IDLE;
 		}
 	}
 }
@@ -268,9 +282,7 @@ void cbToCoNet_vNwkEvent(teEvent eEvent, uint32 u32arg) {
  *
  ****************************************************************************/
 void cbToCoNet_vRxEvent(tsRxDataApp *pRx) {
-	int i;
 	static uint16 u16seqPrev = 0xFFFF;
-	//uint8 *p = pRx->auData;
 
 	// print coming payload
 	vfPrintf(&sSerStream, LB"[PKT Ad:%04x,Ln:%03d,Seq:%03d,Lq:%03d,Tms:%05d \"",
@@ -279,16 +291,8 @@ void cbToCoNet_vRxEvent(tsRxDataApp *pRx) {
 			pRx->u8Seq,
 			pRx->u8Lqi,
 			pRx->u32Tick & 0xFFFF);
-	for (i = 0; i < pRx->u8Len; i++) {
-		if (i < 32) {
-			sSerStream.bPutChar(sSerStream.u8Device,
-					(pRx->auData[i] >= 0x20 && pRx->auData[i] <= 0x7f) ? pRx->auData[i] : '.');
-		} else {
-			vfPrintf(&sSerStream, "..");
-			break;
-		}
-	}
-	vfPrintf(&sSerStream, "C\"]");
+	vShowMessage(pRx->auData, pRx->u8Len);
+	vfPrintf(&sSerStream, "\"]");
 
 	// 打ち返す
 	if (pRx->u8Seq == u16seqPrev) {
@@ -569,6 +573,36 @@ static void vProcessEvCore(tsEvent *pEv, teEvent eEvent, uint32 u32evarg) {
 
 /****************************************************************************
  *
+ * NAME: vShowMessage
+ *
+ * DESCRIPTION:
+ *   Put message text to serial console.
+ *
+ * PARAMETERS:      Name            RW  Usage
+ *                  buf				R	pointer to message text
+ *                  size			R	size of message text
+ *
+ * RETURNS:
+ *
+ ****************************************************************************/
+static void vShowMessage(uint8 *buf, int size)
+{
+	int i, c;
+
+	for (i = 0; i < size; i++) {
+		c = *buf++;
+		if (i < 32) {
+			sSerStream.bPutChar(sSerStream.u8Device,
+					(c >= 0x20 && c <= 0x7f) ? c : '.');
+		} else {
+			vfPrintf(&sSerStream, "..");
+			break;
+		}
+	}
+}
+
+/****************************************************************************
+ *
  * NAME: vBroadcastStatus
  *
  * DESCRIPTION:
@@ -577,7 +611,6 @@ static void vProcessEvCore(tsEvent *pEv, teEvent eEvent, uint32 u32evarg) {
  *
  ****************************************************************************/
 static void vBroadcastStatus(void) {
-	int i;
 	tsTxDataApp tsTx;
 
 	vfPrintf(&sSerStream, "%d %d %d" LB, sAppData.ai16Volt, sAppData.ai16Adc1, sAppData.ai16Adc3);
@@ -618,15 +651,53 @@ static void vBroadcastStatus(void) {
 	ToCoNet_bMacTxReq(&tsTx);
 
 	vfPrintf(&sSerStream, LB "Send Broadcast(%d): <", tsTx.u8Len);
-	for (i = 0; i < tsTx.u8Len; i++) {
-		if (i < 32) {
-			sSerStream.bPutChar(sSerStream.u8Device,
-					(tsTx.auData[i] >= 0x20 && tsTx.auData[i] <= 0x7f) ? tsTx.auData[i] : '.');
-		} else {
-			vfPrintf(&sSerStream, "..");
-			break;
-		}
-	}
+	vShowMessage(tsTx.auData, tsTx.u8Len);
+	vfPrintf(&sSerStream, ">" LB);
+	SERIAL_vFlush(sSerStream.u8Device);
+}
+
+/****************************************************************************
+ *
+ * NAME: vSendCommand
+ *
+ * DESCRIPTION:
+ *
+ * RETURNS:
+ *
+ ****************************************************************************/
+static void vSendCommand(char *buf, int size)
+{
+	tsTxDataApp tsTx;
+	memset(&tsTx, 0, sizeof(tsTxDataApp));
+
+	sAppData.u32Seq ++;
+
+	tsTx.u32SrcAddr = ToCoNet_u32GetSerial(); // 自身のアドレス
+	tsTx.u32DstAddr = 0xFFFF; // ブロードキャスト
+	tsTx.bAckReq = FALSE;
+	tsTx.u8Retry = 0x82; // ブロードキャストで都合３回送る
+	tsTx.u8CbId = sAppData.u32Seq & 0xFF;
+	tsTx.u8Seq = sAppData.u32Seq & 0xFF;
+	tsTx.u8Cmd = TOCONET_PACKET_CMD_APP_DATA;
+
+	// ヘッダー部
+	memcpy(tsTx.auData, TWPOWER_HEADER, TWPOWER_HEADER_SIZE);
+	// データ部
+	memcpy(&tsTx.auData[TWPOWER_HEADER_SIZE], buf, size);
+	// データ部CRC
+	uint8 u8crc = u8CCITT8(&tsTx.auData[TWPOWER_HEADER_SIZE], size);
+	vPutHexByte(&tsTx.auData[TWPOWER_CRC_POS], u8crc);
+	// データ部サイズ
+	vPutHexByte(&tsTx.auData[TWPOWER_LEN_POS], size);
+
+	// ペイロード長設定
+	tsTx.u8Len = TWPOWER_HEADER_SIZE + size;
+
+	// 送信
+	ToCoNet_bMacTxReq(&tsTx);
+
+	vfPrintf(&sSerStream, LB "Send (%d): <", tsTx.u8Len);
+	vShowMessage(tsTx.auData, tsTx.u8Len);
 	vfPrintf(&sSerStream, ">" LB);
 	SERIAL_vFlush(sSerStream.u8Device);
 }

@@ -76,6 +76,7 @@ static void vInitHardware(int f_warm_start);
 
 void vSerialInit(uint32 u32Baud, tsUartOpt *pUartOpt);
 static void vHandleSerialInput(void);
+static void vShowMessage(uint8 *buf, int size);
 static void vSendCommand(char *buf, int size);
 static void vProcessIncomingData(tsRxDataApp *pRx);
 
@@ -244,27 +245,18 @@ void cbToCoNet_vNwkEvent(teEvent eEvent, uint32 u32arg) {
  *
  ****************************************************************************/
 void cbToCoNet_vRxEvent(tsRxDataApp *pRx) {
-	int i;
 	static uint16 u16seqPrev = 0xFFFF;
 	//uint8 *p = pRx->auData;
 
 	// print coming payload
-	vfPrintf(&sSerStream, LB"[PKT Ad:%04x,Ln:%03d,Seq:%03d,Lq:%03d,Tms:%05d \"",
+	vfPrintf(&sSerStream, LB"[PKT Ad:%04x,Ln:%03d,Seq:%03d,Lq:%03d,Tms:%05d,\"",
 			pRx->u32SrcAddr,
 			pRx->u8Len+4, // Actual payload byte: the network layer uses additional 4 bytes.
 			pRx->u8Seq,
 			pRx->u8Lqi,
 			pRx->u32Tick & 0xFFFF);
-	for (i = 0; i < pRx->u8Len; i++) {
-		if (i < 32) {
-			sSerStream.bPutChar(sSerStream.u8Device,
-					(pRx->auData[i] >= 0x20 && pRx->auData[i] <= 0x7f) ? pRx->auData[i] : '.');
-		} else {
-			vfPrintf(&sSerStream, "..");
-			break;
-		}
-	}
-	vfPrintf(&sSerStream, "C\"]");
+	vShowMessage(pRx->auData, pRx->u8Len);
+	vfPrintf(&sSerStream, "\"]");
 
 	if (pRx->u8Seq == u16seqPrev) {
 		vfPrintf(&sSerStream, LB "Duplicated Message" LB);
@@ -479,6 +471,36 @@ static void vProcessEvCore(tsEvent *pEv, teEvent eEvent, uint32 u32evarg) {
 
 /****************************************************************************
  *
+ * NAME: vShowMessage
+ *
+ * DESCRIPTION:
+ *   Put message text to serial console.
+ *
+ * PARAMETERS:      Name            RW  Usage
+ *                  buf				R	pointer to message text
+ *                  size			R	size of message text
+ *
+ * RETURNS:
+ *
+ ****************************************************************************/
+static void vShowMessage(uint8 *buf, int size)
+{
+	int i, c;
+
+	for (i = 0; i < size; i++) {
+		c = *buf++;
+		if (i < 32) {
+			sSerStream.bPutChar(sSerStream.u8Device,
+					(c >= 0x20 && c <= 0x7f) ? c : '.');
+		} else {
+			vfPrintf(&sSerStream, "..");
+			break;
+		}
+	}
+}
+
+/****************************************************************************
+ *
  * NAME: vSendCommand
  *
  * DESCRIPTION:
@@ -517,7 +539,10 @@ static void vSendCommand(char *buf, int size)
 	// 送信
 	ToCoNet_bMacTxReq(&tsTx);
 
-	vfPrintf(&sSerStream, LB "Sent: '%s'" LB, &tsTx.auData);
+	vfPrintf(&sSerStream, LB "Send (%d): <", tsTx.u8Len);
+	vShowMessage(tsTx.auData, tsTx.u8Len);
+	vfPrintf(&sSerStream, ">" LB);
+	SERIAL_vFlush(sSerStream.u8Device);
 }
 
 /****************************************************************************
