@@ -26,11 +26,19 @@ extern "C" {
 #define TWPOWER_CMD_ON "ON"
 #define TWPOWER_CMD_OFF "OF"
 
+#define TWPOWER_ADC_SIZE 4
+#define TWPOWER_ADCVOLT_POS 2
+#define TWPOWER_ADC1_POS 6
+#define TWPOWER_ADC3_POS 10
+
 /****************************************************************************/
 /***        Exported Functions                                            ***/
 /****************************************************************************/
 void vPutHexByte(uint8 *buf, uint16 hex);
 void vPutHexWord(uint8 *buf, uint16 hex);
+uint16 vGetHexNibble(uint8 *buf);
+uint16 vGetHexByte(uint8 *buf);
+uint16 vGetHexWord(uint8 *buf);
 bool_t vCheckCRC(uint8 *buf, int size);
 
 #if defined __cplusplus

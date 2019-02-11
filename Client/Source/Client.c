@@ -59,6 +59,11 @@ typedef struct
 
 	teCommand_TWPOWER u8Command;
 	uint32 u32CommandCount;
+
+	// ADC値
+	int16 ai16Volt;
+	int16 ai16Adc1;
+	int16 ai16Adc3;
 } tsAppData;
 
 /****************************************************************************/
@@ -532,7 +537,11 @@ static void vProcessIncomingData(tsRxDataApp *pRx)
 	cmd[TWPOWER_CMD_SIZE] = 0;
 
 	if (!memcmp(cmd, TWPOWER_CMD_STATUS, TWPOWER_CMD_SIZE)) {
-		vfPrintf(&sSerStream, LB "Receive Status" LB);
+		sAppData.ai16Volt = vGetHexWord(&pRx->auData[TWPOWER_HEADER_SIZE + TWPOWER_ADCVOLT_POS]);
+		sAppData.ai16Adc1 = vGetHexWord(&pRx->auData[TWPOWER_HEADER_SIZE + TWPOWER_ADC1_POS]);
+		sAppData.ai16Adc3 = vGetHexWord(&pRx->auData[TWPOWER_HEADER_SIZE + TWPOWER_ADC3_POS]);
+		vfPrintf(&sSerStream, LB "Receive Status: %d %d %d" LB, sAppData.ai16Volt, sAppData.ai16Adc1, sAppData.ai16Adc3);
+
 		if (sAppData.u8Command == E_TWPOWER_COMMAND_ON_REQ) {
 			sAppData.u8Command = E_TWPOWER_COMMAND_ON_SEND;
 			sAppData.u32CommandCount = 1;

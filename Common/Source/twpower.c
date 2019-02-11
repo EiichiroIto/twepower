@@ -10,8 +10,11 @@
 #include <AppHardwareApi.h>
 
 #include "utils.h"
+#include "ccitt8.h"
 
 #include "twpower.h"
+
+static char hextable[17] = "0123456789ABCDEF";
 
 /****************************************************************************
  *
@@ -22,11 +25,10 @@
  * RETURNS:
  *
  ****************************************************************************/
-void vPutHexByte(uint8 *buf, uint16 hex) {
-	static char table[17] = "0123456789ABCDEF";
-
-	*buf++ = table[(hex & 0xF0) >> 4];
-	*buf++ = table[hex & 0x0F];
+void vPutHexByte(uint8 *buf, uint16 hex)
+{
+	*buf++ = hextable[(hex & 0xF0) >> 4];
+	*buf++ = hextable[hex & 0x0F];
 }
 
 /****************************************************************************
@@ -38,9 +40,68 @@ void vPutHexByte(uint8 *buf, uint16 hex) {
  * RETURNS:
  *
  ****************************************************************************/
-void vPutHexWord(uint8 *buf, uint16 hex) {
+void vPutHexWord(uint8 *buf, uint16 hex)
+{
 	vPutHexByte(buf, (hex & 0xFF00) >> 8);
 	vPutHexByte(buf + 2, hex & 0xFF);
+}
+
+/****************************************************************************
+ *
+ * NAME: vGetHexNibble()
+ *
+ * DESCRIPTION:
+ *
+ * RETURNS:
+ *
+ ****************************************************************************/
+uint16 vGetHexNibble(uint8 *buf)
+{
+	uint16 c = *buf++;
+	if (c >= '0' && c <= '9') {
+		c -= '0';
+	} else if (c >= 'a' && c <= 'f') {
+		c -= 'a' - 10;
+	} else if (c >= 'A' && c <= 'F') {
+		c -= 'A' - 10;
+	} else {
+		c = 0;
+	}
+	return c;
+}
+
+/****************************************************************************
+ *
+ * NAME: vGetHexByte()
+ *
+ * DESCRIPTION:
+ *
+ * RETURNS:
+ *
+ ****************************************************************************/
+uint16 vGetHexByte(uint8 *buf)
+{
+	uint16 ret = vGetHexNibble(buf);
+	ret <<= 4;
+	ret |= vGetHexNibble(buf + 1);
+	return ret;
+}
+
+/****************************************************************************
+ *
+ * NAME: vGetHexWord()
+ *
+ * DESCRIPTION:
+ *
+ * RETURNS:
+ *
+ ****************************************************************************/
+uint16 vGetHexWord(uint8 *buf)
+{
+	uint16 ret = vGetHexByte(buf);
+	ret <<= 8;
+	ret |= vGetHexByte(buf + 2);
+	return ret;
 }
 
 /****************************************************************************

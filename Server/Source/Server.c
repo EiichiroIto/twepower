@@ -599,12 +599,12 @@ static void vBroadcastStatus(void) {
 	memcpy(tsTx.auData, TWPOWER_HEADER, TWPOWER_HEADER_SIZE);
 	// データ部
 	memcpy(&tsTx.auData[TWPOWER_HEADER_SIZE], TWPOWER_CMD_STATUS, TWPOWER_CMD_SIZE);
-	vPutHexWord(&tsTx.auData[TWPOWER_HEADER_SIZE+2], sAppData.ai16Volt);
-	vPutHexWord(&tsTx.auData[TWPOWER_HEADER_SIZE+6], sAppData.ai16Adc1);
-	vPutHexWord(&tsTx.auData[TWPOWER_HEADER_SIZE+10], sAppData.ai16Adc3);
+	vPutHexWord(&tsTx.auData[TWPOWER_HEADER_SIZE + TWPOWER_ADCVOLT_POS], sAppData.ai16Volt);
+	vPutHexWord(&tsTx.auData[TWPOWER_HEADER_SIZE + TWPOWER_ADC1_POS], sAppData.ai16Adc1);
+	vPutHexWord(&tsTx.auData[TWPOWER_HEADER_SIZE + TWPOWER_ADC3_POS], sAppData.ai16Adc3);
 	tsTx.auData[TWPOWER_HEADER_SIZE+14] = '\n';
 	tsTx.auData[TWPOWER_HEADER_SIZE+15] = '\0';
-	int size = 2+4+4+4+2;
+	int size = 2+4+4+4+1;
 	// データ部CRC
 	uint8 u8crc = u8CCITT8(&tsTx.auData[TWPOWER_HEADER_SIZE], size);
 	vPutHexByte(&tsTx.auData[TWPOWER_CRC_POS], u8crc);
