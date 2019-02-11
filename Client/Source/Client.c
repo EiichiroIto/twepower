@@ -16,7 +16,7 @@
 #include "sensor_driver.h"
 #include "adc.h"
 
-#include "Server.h"
+#include "Client.h"
 
 // DEBUG options
 
@@ -57,13 +57,8 @@ typedef struct
     // シーケンス番号
     uint32 u32Seq;
 
-    // スリープカウンタ
-	uint32 u32Counter;
-
-	// ADC
-	tsObjData_ADC sObjADC;	// ADC管理構造体（データ部）
-	tsSnsObj sADC;			// ADC管理構造体（制御部）
-	uint8 u8ADCDone;		// ADC読み込み完了(=1), 送信完了(=2)
+	teCommand_TWPOWER u8Command;
+	uint32 u32CommandCount;
 } tsAppData;
 
 /****************************************************************************/
@@ -76,9 +71,7 @@ static void vInitHardware(int f_warm_start);
 
 void vSerialInit(uint32 u32Baud, tsUartOpt *pUartOpt);
 static void vHandleSerialInput(void);
-
-static void vBroadcastStatus(void);
-static void vSleepSec(int sec);
+static void vSendCommand(char *buf, int size);
 static void vProcessIncomingData(tsRxDataApp *pRx);
 
 /****************************************************************************/
@@ -204,14 +197,16 @@ void cbToCoNet_vMain(void)
 	/* handle uart input */
 	vHandleSerialInput();
 
-	sAppData.u32Counter ++;
-	if (sAppData.u32Counter > 1000) {
-		sAppData.u32Counter = 0;
-		//vfPrintf(&sSerStream, ".");
-		vSleepSec(10);
-	} else if (sAppData.u8ADCDone == 1) {
-		sAppData.u8ADCDone = 2;
-		vBroadcastStatus();
+	if (sAppData.u32CommandCount > 0) {
+		sAppData.u32CommandCount --;
+		if (sAppData.u32CommandCount == 0) {
+			if (sAppData.u8Command == E_TWPOWER_COMMAND_ON_SEND) {
+				vSendCommand(TWPOWER_CMD_ON, TWPOWER_CMD_SIZE);
+			}
+			if (sAppData.u8Command == E_TWPOWER_COMMAND_OFF_SEND) {
+				vSendCommand(TWPOWER_CMD_OFF, TWPOWER_CMD_SIZE);
+			}
+		}
 	}
 }
 
@@ -267,16 +262,15 @@ void cbToCoNet_vRxEvent(tsRxDataApp *pRx) {
 	vfPrintf(&sSerStream, "C\"]");
 
 	// 打ち返す
-	if (    pRx->u8Seq != u16seqPrev // シーケンス番号による重複チェック
-		&& !memcmp(pRx->auData, "PING:", 5) // パケットの先頭は PING: の場合
-	) {
+	if (pRx->u8Seq == u16seqPrev) {
+		vfPrintf(&sSerStream, LB "Duplicated Message" LB);
+	} else if (!memcmp(pRx->auData, TWPOWER_HEADER_ID, TWPOWER_HEADER_ID_SIZE)) {
+		vfPrintf(&sSerStream, LB "Invalid Message" LB);
+	} else if (!vCheckCRC(pRx->auData, pRx->u8Len)) {
+		vfPrintf(&sSerStream, LB "Invalid CRC" LB);
+	} else {
 		u16seqPrev = pRx->u8Seq;
 		vProcessIncomingData(pRx);
-	} else if (!memcmp(pRx->auData, "PONG:", 5)) {
-		// ＵＡＲＴに出力
-		vfPrintf(&sSerStream, LB "PONG Message from %08x" LB, pRx->u32SrcAddr);
-	} else {
-		vfPrintf(&sSerStream, LB "Other Message" LB);
 	}
 }
 
@@ -320,19 +314,6 @@ void cbToCoNet_vHwEvent(uint32 u32DeviceId, uint32 u32ItemBitmap)
     switch (u32DeviceId) {
     case E_AHI_DEVICE_TICK_TIMER:
     	break;
-
-	case E_AHI_DEVICE_ANALOGUE:
-		// ADC完了割り込み
-		vSnsObj_Process(&sAppData.sADC, E_ORDER_KICK);
-		if (bSnsObj_isComplete(&sAppData.sADC)) {
-			// 全チャネルの処理が終わった。
-			sAppData.u8ADCDone = 1;
-			vSnsObj_Process(&sAppData.sADC, E_ORDER_KICK);
-			//vSnsObj_Process(&sAppData.sADC, E_ORDER_KICK);
-
-			vfPrintf(&sSerStream, LB "ADC Read Complete." LB);
-		}
-		break;
 
     default:
     	break;
@@ -378,27 +359,6 @@ static void vInitHardware(int f_warm_start)
 
 	ToCoNet_vDebugInit(&sSerStream);
 	ToCoNet_vDebugLevel(0);
-
-	// IOs
-	vPortDisablePullup(PORT_RESET);
-	vPortDisablePullup(PORT_SET);
-	vPortDisablePullup(PORT_LED);
-	vPortSetHi(PORT_RESET);
-	vPortSetHi(PORT_SET);
-	vPortSetHi(PORT_LED);
-	vPortAsOutput(PORT_RESET);
-	vPortAsOutput(PORT_SET);
-	vPortAsOutput(PORT_LED);
-
-	// ADC関係のデータを初期化する
-	//vSnsObj_Init(&sAppData.sADC);
-	vADC_Init(&sAppData.sObjADC, &sAppData.sADC, TRUE);
-	// ハード初期化待ちを行う
-	//vADC_WaitInit();
-	// 計測ポートを設定する
-	sAppData.sObjADC.u8SourceMask = TEH_ADC_SRC_VOLT | TEH_ADC_SRC_ADC_1 | TEH_ADC_SRC_ADC_3;
-	// ADC計測開始
-	vSnsObj_Process(&sAppData.sADC, E_ORDER_KICK);
 
 	vfPrintf(&sSerStream, LB "Initialize Hardware complete.");
 }
@@ -469,34 +429,14 @@ static void vHandleSerialInput(void)
 			}
 			break;
 
-		case 's':
-			vPortSetHi(PORT_SET);
-			vfPrintf(&sSerStream, LB "Set High PORT_SET.");
+		case 'n':
+			sAppData.u8Command = E_TWPOWER_COMMAND_ON_REQ;
+			vfPrintf(&sSerStream, "On Request");
 			break;
 
-		case 'S':
-			vPortSetLo(PORT_SET);
-			vfPrintf(&sSerStream, LB "Set Low PORT_SET.");
-			break;
-
-		case 'r':
-			vPortSetHi(PORT_RESET);
-			vfPrintf(&sSerStream, LB "Set High PORT_RESET.");
-			break;
-
-		case 'R':
-			vPortSetLo(PORT_RESET);
-			vfPrintf(&sSerStream, LB "Set Low PORT_RESET.");
-			break;
-
-		case 'l':
-			vPortSetHi(PORT_LED);
-			vfPrintf(&sSerStream, LB "Set High PORT_LED.");
-			break;
-
-		case 'L':
-			vPortSetLo(PORT_LED);
-			vfPrintf(&sSerStream, LB "Set Low PORT_LED.");
+		case 'f':
+			sAppData.u8Command = E_TWPOWER_COMMAND_OFF_REQ;
+			vfPrintf(&sSerStream, "Off Request");
 			break;
 
 		default:
@@ -535,23 +475,22 @@ static void vProcessEvCore(tsEvent *pEv, teEvent eEvent, uint32 u32evarg) {
 
 /****************************************************************************
  *
- * NAME: vBroadcastStatus
+ * NAME: vSendCommand
  *
  * DESCRIPTION:
  *
  * RETURNS:
  *
  ****************************************************************************/
-static void vBroadcastStatus(void) {
+static void vSendCommand(char *buf, int size)
+{
 	tsTxDataApp tsTx;
-
 	memset(&tsTx, 0, sizeof(tsTxDataApp));
 
-	sAppData.u32Seq = ToCoNet_u32GetRand();
+	sAppData.u32Seq ++;
 
 	tsTx.u32SrcAddr = ToCoNet_u32GetSerial(); // 自身のアドレス
 	tsTx.u32DstAddr = 0xFFFF; // ブロードキャスト
-
 	tsTx.bAckReq = FALSE;
 	tsTx.u8Retry = 0x82; // ブロードキャストで都合３回送る
 	tsTx.u8CbId = sAppData.u32Seq & 0xFF;
@@ -561,14 +500,7 @@ static void vBroadcastStatus(void) {
 	// ヘッダー部
 	memcpy(tsTx.auData, TWPOWER_HEADER, TWPOWER_HEADER_SIZE);
 	// データ部
-	SPRINTF_vRewind();
-//	vfPrintf(SPRINTF_Stream, "PING: %08X", ToCoNet_u32GetSerial());
-	vfPrintf(SPRINTF_Stream, "ST%04X%04X%04X\n",
-			 sAppData.sObjADC.ai16Result[TEH_ADC_IDX_VOLT],
-			 sAppData.sObjADC.ai16Result[TEH_ADC_IDX_ADC_1],
-			 sAppData.sObjADC.ai16Result[TEH_ADC_IDX_ADC_3]);
-	int size = SPRINTF_u16Length();
-	memcpy(&tsTx.auData[TWPOWER_HEADER_SIZE], SPRINTF_pu8GetBuff(), size);
+	memcpy(&tsTx.auData[TWPOWER_HEADER_SIZE], buf, size);
 	// データ部CRC
 	uint8 u8crc = u8CCITT8(&tsTx.auData[TWPOWER_HEADER_SIZE], size);
 	vPutHex(&tsTx.auData[TWPOWER_CRC_POS], u8crc);
@@ -581,30 +513,7 @@ static void vBroadcastStatus(void) {
 	// 送信
 	ToCoNet_bMacTxReq(&tsTx);
 
-	vfPrintf(&sSerStream, LB "Send: '%s'" LB, &tsTx.auData);
-}
-
-/****************************************************************************
- *
- * NAME: vSleepSec()
- *
- * DESCRIPTION:
- *
- * RETURNS:
- *
- ****************************************************************************/
-static void vSleepSec(int sec)
-{
-	vfPrintf(&sSerStream, "now sleep for %d seconds." LB, sec);
-	SERIAL_vFlush(sSerStream.u8Device); // flushing
-
-	vAHI_UartDisable(sSerStream.u8Device);
-	vAHI_DioSetDirection(u32DioPortWakeUp, 0); // set as input
-	(void)u32AHI_DioInterruptStatus(); // clear interrupt register
-	vAHI_DioWakeEnable(u32DioPortWakeUp, 0); // also use as DIO WAKE SOURCE
-	vAHI_DioWakeEdge(u32DioPortWakeUp, 0); // 割り込みエッジ（立上がりに設定）
-
-	ToCoNet_vSleep(E_AHI_WAKE_TIMER_0, sec * 1000, FALSE, TRUE); // RAM ON SLEEP USING WK0
+	vfPrintf(&sSerStream, LB "Sent: '%s'" LB, &tsTx.auData);
 }
 
 /****************************************************************************
@@ -623,10 +532,18 @@ static void vProcessIncomingData(tsRxDataApp *pRx)
 	memcpy(cmd, &pRx->auData[TWPOWER_CMD_POS], TWPOWER_CMD_SIZE);
 	cmd[TWPOWER_CMD_SIZE] = 0;
 
-	if (!memcmp(cmd, TWPOWER_CMD_ON, TWPOWER_CMD_SIZE)) {
-		vfPrintf(&sSerStream, LB "On Received" LB);
-	} else if (!memcmp(cmd, TWPOWER_CMD_OFF, TWPOWER_CMD_SIZE)) {
-		vfPrintf(&sSerStream, LB "Off Received" LB);
+	if (!memcmp(cmd, TWPOWER_CMD_STATUS, TWPOWER_CMD_SIZE)) {
+		vfPrintf(&sSerStream, LB "Receive Status" LB);
+		if (sAppData.u8Command == E_TWPOWER_COMMAND_ON_REQ) {
+			sAppData.u8Command = E_TWPOWER_COMMAND_ON_SEND;
+			sAppData.u32CommandCount = 1;
+			vfPrintf(&sSerStream, LB "On Send" LB);
+		}
+		if (sAppData.u8Command == E_TWPOWER_COMMAND_OFF_REQ) {
+			sAppData.u8Command = E_TWPOWER_COMMAND_OFF_SEND;
+			sAppData.u32CommandCount = 1;
+			vfPrintf(&sSerStream, LB "Off Send" LB);
+		}
 	} else {
 		vfPrintf(&sSerStream, LB "Invalid Command: %s" LB, cmd);
 	}

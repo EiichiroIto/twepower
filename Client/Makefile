@@ -1,8 +1,8 @@
 #########################################################################
 #
-# MODULE:   MONOWIRELESS-00001-IEEE802.15.4-I/O-Switch
+# MODULE:   JN-AN-1061-Jenie-Application-Template
 #
-# DESCRIPTION: WM_00001_Coord MakeFile
+# DESCRIPTION: MakeFile
 #
 ############################################################################
 # 
@@ -20,19 +20,19 @@
 # BE LIABLE FOR ANY DAMAGES, INCLUDING, BUT NOT LIMITED TO, SPECIAL,
 # INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON WHATSOEVER.
 # 
-# Copyright Jennic Ltd 2009. All rights reserved
+# Copyright Jennic Ltd 2010. All rights reserved
 #
 #############################################################################
 # Subversion variables
-# $HeadURL:  $
-# $Revision: 13257 $
-# $LastChangedBy: pjtw $
-# $LastChangedDate: 2009-05-26 16:11:24 +0100 (Tue, 26 May 2009) $
-# $Id: Makefile 13257 2009-05-26 15:11:24Z mwild $ 
+# $HeadURL: http://svn/apps/Application_Notes/JN-AN-1067-JenNet-Wireless-Sensor-Network/Tags/Release_1v5-Public/EndDevice/Makefile $
+# $Revision: 5583 $
+# $LastChangedBy: mlook $
+# $LastChangedDate: 2010-03-17 13:33:14 +0000 (Wed, 17 Mar 2010) $
+# $Id: Makefile 5583 2010-03-17 13:33:14Z mlook $ 
 #
 #############################################################################
 
-DIRS	= Client Server
+DIRS	= Build
 
 TARGETS: clean all
 

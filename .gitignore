@@ -1,2 +1,3 @@
 *.bin
-twepower/Build/objs_BLUE/
+Server/Build/objs_BLUE/
+Client/Build/objs_BLUE/
