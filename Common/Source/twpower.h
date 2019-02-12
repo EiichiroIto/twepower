@@ -28,11 +28,17 @@ extern "C" {
 #define TWPOWER_CMD_ON_REPLY "on"
 #define TWPOWER_CMD_OFF_REPLY "of"
 #define TWPOWER_CMD_LED "LD"
+#define TWPOWER_CMD_AUTOOFF "AO"
 
 #define TWPOWER_ADC_SIZE 4
 #define TWPOWER_ADCVOLT_POS 2
 #define TWPOWER_ADC1_POS 6
 #define TWPOWER_ADC3_POS 10
+#define TWPOWER_INPUT1_POS 14
+#define TWPOWER_INPUT2_POS 15
+#define TWPOWER_INPUT3_POS 16
+#define TWPOWER_INPUT4_POS 17
+#define TWPOWER_STATUS_SIZE 18
 
 /****************************************************************************/
 /***        Exported Functions                                            ***/

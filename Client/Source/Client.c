@@ -57,6 +57,7 @@ typedef struct
     // シーケンス番号
     uint32 u32Seq;
 
+	bool_t bCommandInput;
 	teCommand_TWPOWER u8Command;
 	uint32 u32CommandCount;
 
@@ -129,6 +130,8 @@ void cbAppColdStart(bool_t bAfterAhiInit)
 		// clear application context
 		memset (&sAppData, 0x00, sizeof(sAppData));
 		sAppData.u8channel = CHANNEL;
+		sAppData.u32Seq = ToCoNet_u32GetRand();
+		sAppData.bCommandInput = FALSE;
 
 		// ToCoNet configuration
 		sToCoNet_AppContext.u32AppId = APP_ID;
@@ -415,36 +418,45 @@ static void vHandleSerialInput(void)
 		vfPrintf(&sSerStream, "\n\r# [%c] --> ", i16Char);
 	    SERIAL_vFlush(sSerStream.u8Device);
 
-		switch(i16Char) {
-		case 'd': case 'D':
-			_C {
-				static uint8 u8DgbLvl;
+		if (i16Char == ':') {
+			sAppData.bCommandInput = TRUE;
+			vfPrintf(&sSerStream, "Enter Command [nfl]");
+		} else if (sAppData.bCommandInput) {
+			sAppData.bCommandInput = FALSE;
+			switch(i16Char) {
+			case 'd': case 'D':
+				_C {
+					static uint8 u8DgbLvl;
 
-				u8DgbLvl++;
-				if(u8DgbLvl > 5) u8DgbLvl = 0;
-				ToCoNet_vDebugLevel(u8DgbLvl);
+					u8DgbLvl++;
+					if(u8DgbLvl > 5) u8DgbLvl = 0;
+					ToCoNet_vDebugLevel(u8DgbLvl);
 
-				vfPrintf(&sSerStream, "set NwkCode debug level to %d.", u8DgbLvl);
+					vfPrintf(&sSerStream, "set NwkCode debug level to %d.", u8DgbLvl);
+				}
+				break;
+
+			case 'n':
+				sAppData.u8Command = E_TWPOWER_COMMAND_ON_REQ;
+				vfPrintf(&sSerStream, "On Request");
+				break;
+
+			case 'f':
+				sAppData.u8Command = E_TWPOWER_COMMAND_OFF_REQ;
+				vfPrintf(&sSerStream, "Off Request");
+				break;
+
+			case 'l':
+				sAppData.u8Command = E_TWPOWER_COMMAND_LED_REQ;
+				vfPrintf(&sSerStream, "Led Request");
+				break;
+
+			default:
+				vfPrintf(&sSerStream, "Invalid Command");
+				break;
 			}
-			break;
-
-		case 'n':
-			sAppData.u8Command = E_TWPOWER_COMMAND_ON_REQ;
-			vfPrintf(&sSerStream, "On Request");
-			break;
-
-		case 'f':
-			sAppData.u8Command = E_TWPOWER_COMMAND_OFF_REQ;
-			vfPrintf(&sSerStream, "Off Request");
-			break;
-
-		case 'l':
-			sAppData.u8Command = E_TWPOWER_COMMAND_LED_REQ;
-			vfPrintf(&sSerStream, "Led Request");
-			break;
-
-		default:
-			break;
+		} else {
+			vfPrintf(&sSerStream, "Invalid Command");
 		}
 
 		vfPrintf(&sSerStream, LB);
