@@ -212,6 +212,9 @@ void cbToCoNet_vMain(void)
 			if (sAppData.u8Command == E_TWPOWER_COMMAND_OFF_SEND) {
 				vSendCommand(TWPOWER_CMD_OFF, TWPOWER_CMD_SIZE);
 			}
+			if (sAppData.u8Command == E_TWPOWER_COMMAND_LED_SEND) {
+				vSendCommand(TWPOWER_CMD_LED, TWPOWER_CMD_SIZE);
+			}
 		}
 	}
 }
@@ -435,6 +438,11 @@ static void vHandleSerialInput(void)
 			vfPrintf(&sSerStream, "Off Request");
 			break;
 
+		case 'l':
+			sAppData.u8Command = E_TWPOWER_COMMAND_LED_REQ;
+			vfPrintf(&sSerStream, "Led Request");
+			break;
+
 		default:
 			break;
 		}
@@ -463,8 +471,8 @@ static void vProcessEvCore(tsEvent *pEv, teEvent eEvent, uint32 u32evarg) {
 			vfPrintf(&sSerStream, LB "Wake up by %s.",
 					bWakeupByButton ? "UART PORT" : "WAKE TIMER");
 	    } else {
-	    	vfPrintf(&sSerStream, "\r\n*** TWELITE NET PINGPONG SAMPLE %d.%02d-%d ***", VERSION_MAIN, VERSION_SUB, VERSION_VAR);
-	    	vfPrintf(&sSerStream, "\r\n*** %08x ***", ToCoNet_u32GetSerial());
+	    	vfPrintf(&sSerStream, LB "*** TWEPOWER %d.%02d-%d ***" LB, VERSION_MAIN, VERSION_SUB, VERSION_VAR);
+	    	vfPrintf(&sSerStream, "*** %08x ***" LB, ToCoNet_u32GetSerial());
 	    }
 	}
 }
@@ -576,6 +584,11 @@ static void vProcessIncomingData(tsRxDataApp *pRx)
 			sAppData.u8Command = E_TWPOWER_COMMAND_OFF_SEND;
 			sAppData.u32CommandCount = 1;
 			vfPrintf(&sSerStream, LB "Off Send" LB);
+		}
+		if (sAppData.u8Command == E_TWPOWER_COMMAND_LED_REQ) {
+			sAppData.u8Command = E_TWPOWER_COMMAND_LED_SEND;
+			sAppData.u32CommandCount = 1;
+			vfPrintf(&sSerStream, LB "Led Send" LB);
 		}
 	} else {
 		vfPrintf(&sSerStream, LB "Invalid Command: %s" LB, cmd);

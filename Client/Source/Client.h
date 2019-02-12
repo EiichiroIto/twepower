@@ -30,9 +30,11 @@ typedef enum
 {
 	E_TWPOWER_COMMAND_IDLE = 0x00,    //!< 開始前
 	E_TWPOWER_COMMAND_ON_REQ,
-	E_TWPOWER_COMMAND_OFF_REQ,
 	E_TWPOWER_COMMAND_ON_SEND,
+	E_TWPOWER_COMMAND_OFF_REQ,
 	E_TWPOWER_COMMAND_OFF_SEND,
+	E_TWPOWER_COMMAND_LED_REQ,
+	E_TWPOWER_COMMAND_LED_SEND,
 } teCommand_TWPOWER;
 
 /****************************************************************************/

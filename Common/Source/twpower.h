@@ -27,6 +27,7 @@ extern "C" {
 #define TWPOWER_CMD_OFF "OF"
 #define TWPOWER_CMD_ON_REPLY "on"
 #define TWPOWER_CMD_OFF_REPLY "of"
+#define TWPOWER_CMD_LED "LD"
 
 #define TWPOWER_ADC_SIZE 4
 #define TWPOWER_ADCVOLT_POS 2

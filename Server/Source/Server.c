@@ -559,14 +559,14 @@ static void vProcessEvCore(tsEvent *pEv, teEvent eEvent, uint32 u32evarg) {
 	if (eEvent == E_EVENT_START_UP) {
 		// ここで UART のメッセージを出力すれば安全である。
 		if (u32evarg & EVARG_START_UP_WAKEUP_RAMHOLD_MASK) {
-			vfPrintf(&sSerStream, LB "RAMHOLD");
+			vfPrintf(&sSerStream, LB "RAMHOLD" LB);
 		}
 	    if (u32evarg & EVARG_START_UP_WAKEUP_MASK) {
-			vfPrintf(&sSerStream, LB "Wake up by %s.",
+			vfPrintf(&sSerStream, LB "Wake up by %s." LB,
 					bWakeupByButton ? "UART PORT" : "WAKE TIMER");
 	    } else {
-	    	vfPrintf(&sSerStream, "\r\n*** TWELITE NET PINGPONG SAMPLE %d.%02d-%d ***", VERSION_MAIN, VERSION_SUB, VERSION_VAR);
-	    	vfPrintf(&sSerStream, "\r\n*** %08x ***", ToCoNet_u32GetSerial());
+	    	vfPrintf(&sSerStream, LB "*** TWEPOWER %d.%02d-%d ***" LB, VERSION_MAIN, VERSION_SUB, VERSION_VAR);
+	    	vfPrintf(&sSerStream, "*** %08x ***" LB, ToCoNet_u32GetSerial());
 	    }
 	}
 }
@@ -748,6 +748,10 @@ static void vProcessIncomingData(tsRxDataApp *pRx)
 	} else if (!memcmp(cmd, TWPOWER_CMD_OFF, TWPOWER_CMD_SIZE)) {
 		vfPrintf(&sSerStream, LB "Off Received" LB);
 		sAppData.u8Command = E_TWPOWER_COMMAND_OFF;
+		sAppData.u32SleepCounter = 0;
+	} else if (!memcmp(cmd, TWPOWER_CMD_LED, TWPOWER_CMD_SIZE)) {
+		vfPrintf(&sSerStream, LB "Led Received" LB);
+		vPortSetLo(PORT_LED);
 		sAppData.u32SleepCounter = 0;
 	} else {
 		vfPrintf(&sSerStream, LB "Invalid Command: %s" LB, cmd);
