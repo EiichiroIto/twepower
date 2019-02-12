@@ -55,7 +55,7 @@ typedef struct
     uint32 u32Seq;
 
     // スリープカウンタ
-	uint32 u32SleepCounter;
+	uint32 u32SleepCountDown;
 
 	// ADC
 	tsObjData_ADC sObjADC;	// ADC管理構造体（データ部）
@@ -135,6 +135,7 @@ void cbAppColdStart(bool_t bAfterAhiInit)
 		// clear application context
 		memset (&sAppData, 0x00, sizeof(sAppData));
 		sAppData.u8channel = CHANNEL;
+		sAppData.u32SleepCountDown = SLEEP_COUNT;
 
 		// ToCoNet configuration
 		sToCoNet_AppContext.u32AppId = APP_ID;
@@ -189,6 +190,8 @@ void cbAppWarmStart(bool_t bAfterAhiInit)
 
 		// MAC start
 		ToCoNet_vMacStart();
+
+		sAppData.u32SleepCountDown = SLEEP_COUNT;
 	}
 }
 
@@ -209,44 +212,49 @@ void cbToCoNet_vMain(void)
 	/* handle uart input */
 	vHandleSerialInput();
 
-	sAppData.u32SleepCounter ++;
-	if (sAppData.u32SleepCounter > 250) {
-		sAppData.u32SleepCounter = 0;
-		vSleepSec(5);
+	if (sAppData.u32SleepCountDown == 0) {
+		vPortSetHi(PORT_SET);
+		vPortSetHi(PORT_RESET);
+		vPortSetHi(PORT_LED);
+		vSleepSec(SLEEP_SECONDS);
+		return;
 	}
+	sAppData.u32SleepCountDown --;
 	if (sAppData.u8AdcState == E_ADC_COMPLETE) {
-		vfPrintf(&sSerStream, "adc complete:%d" LB, sAppData.u32SleepCounter);
+		vfPrintf(&sSerStream, "adc complete:%d" LB, sAppData.u32SleepCountDown);
 		sAppData.u8AdcState = E_ADC_INIT;
 		vBroadcastStatus();
 	}
 	if (sAppData.u8Command != E_TWPOWER_COMMAND_IDLE) {
 		if (sAppData.u8Command == E_TWPOWER_COMMAND_ON) {
-			if (sAppData.u32SleepCounter == 2) {
+			if (sAppData.u32SleepCountDown == 8) {
 				vfPrintf(&sSerStream, "Set Start" LB);
 				vPortSetLo(PORT_SET);
 			}
-			if (sAppData.u32SleepCounter == 6) {
+			if (sAppData.u32SleepCountDown == 4) {
 				vfPrintf(&sSerStream, "Set Stop" LB);
 				vPortSetHi(PORT_SET);
 				sAppData.u8Command = E_TWPOWER_COMMAND_ON_REPLY;
 			}
 		}
 		if (sAppData.u8Command == E_TWPOWER_COMMAND_ON_REPLY) {
+			vfPrintf(&sSerStream, "Send On Reply" LB);
 			vSendCommand(TWPOWER_CMD_ON_REPLY, TWPOWER_CMD_SIZE);
 			sAppData.u8Command = E_TWPOWER_COMMAND_IDLE;
 		}
 		if (sAppData.u8Command == E_TWPOWER_COMMAND_OFF) {
-			if (sAppData.u32SleepCounter == 2) {
+			if (sAppData.u32SleepCountDown == 8) {
 				vfPrintf(&sSerStream, "Reset Start" LB);
 				vPortSetLo(PORT_RESET);
 			}
-			if (sAppData.u32SleepCounter == 6) {
+			if (sAppData.u32SleepCountDown == 4) {
 				vfPrintf(&sSerStream, "Reset Stop" LB);
 				vPortSetHi(PORT_RESET);
 				sAppData.u8Command = E_TWPOWER_COMMAND_OFF_REPLY;
 			}
 		}
 		if (sAppData.u8Command == E_TWPOWER_COMMAND_OFF_REPLY) {
+			vfPrintf(&sSerStream, "Send Off Reply" LB);
 			vSendCommand(TWPOWER_CMD_OFF_REPLY, TWPOWER_CMD_SIZE);
 			sAppData.u8Command = E_TWPOWER_COMMAND_IDLE;
 		}
@@ -744,15 +752,15 @@ static void vProcessIncomingData(tsRxDataApp *pRx)
 	if (!memcmp(cmd, TWPOWER_CMD_ON, TWPOWER_CMD_SIZE)) {
 		vfPrintf(&sSerStream, LB "On Received" LB);
 		sAppData.u8Command = E_TWPOWER_COMMAND_ON;
-		sAppData.u32SleepCounter = 0;
+		sAppData.u32SleepCountDown = 10;
 	} else if (!memcmp(cmd, TWPOWER_CMD_OFF, TWPOWER_CMD_SIZE)) {
 		vfPrintf(&sSerStream, LB "Off Received" LB);
 		sAppData.u8Command = E_TWPOWER_COMMAND_OFF;
-		sAppData.u32SleepCounter = 0;
+		sAppData.u32SleepCountDown = 10;
 	} else if (!memcmp(cmd, TWPOWER_CMD_LED, TWPOWER_CMD_SIZE)) {
 		vfPrintf(&sSerStream, LB "Led Received" LB);
 		vPortSetLo(PORT_LED);
-		sAppData.u32SleepCounter = 0;
+		sAppData.u32SleepCountDown = 500;
 	} else {
 		vfPrintf(&sSerStream, LB "Invalid Command: %s" LB, cmd);
 	}

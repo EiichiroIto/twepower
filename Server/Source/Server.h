@@ -22,8 +22,8 @@ extern "C" {
 #define PORT_SET 19
 //#define PORT_OUT3 4
 #define PORT_LED 9
-#define SLEEP_COUNT	250
-#define SLEEP_SECONDS 5
+#define SLEEP_COUNT	125
+#define SLEEP_SECONDS 10
 
 /****************************************************************************/
 /***        Type Definitions                                              ***/
