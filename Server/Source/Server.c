@@ -86,6 +86,10 @@ static void vBroadcastStatus(void);
 static void vSendCommand(char *buf, int size);
 static void vSleepSec(int sec);
 static void vProcessIncomingData(tsRxDataApp *pRx);
+static void vDipPortOn(bool_t bHigh);
+static void vDipPortOff(bool_t bHigh);
+static void vDipPortLed(bool_t bHigh);
+static void vStartAutoOff(void);
 
 /****************************************************************************/
 /***        Exported Variables                                            ***/
@@ -216,12 +220,12 @@ void cbToCoNet_vMain(void)
 	vHandleSerialInput();
 
 	if (sAppData.u32SleepCountDown == 2) {
-		vPortSetLo(PORT_LED);
+		vDipPortLed(FALSE);
 	}
 	if (sAppData.u32SleepCountDown == 0) {
-		vPortSetHi(PORT_SET);
-		vPortSetHi(PORT_RESET);
-		vPortSetHi(PORT_LED);
+		vDipPortOn(TRUE);
+		vDipPortOff(TRUE);
+		vDipPortLed(TRUE);
 		vSleepSec(SLEEP_SECONDS);
 		return;
 	}
@@ -234,12 +238,10 @@ void cbToCoNet_vMain(void)
 	if (sAppData.u8Command != E_TWPOWER_COMMAND_IDLE) {
 		if (sAppData.u8Command == E_TWPOWER_COMMAND_ON) {
 			if (sAppData.u32SleepCountDown == 8) {
-				vfPrintf(&sSerStream, "Set Start" LB);
-				vPortSetLo(PORT_SET);
+				vDipPortOn(FALSE);
 			}
 			if (sAppData.u32SleepCountDown == 4) {
-				vfPrintf(&sSerStream, "Set Stop" LB);
-				vPortSetHi(PORT_SET);
+				vDipPortOn(TRUE);
 				sAppData.u8Command = E_TWPOWER_COMMAND_ON_REPLY;
 			}
 		}
@@ -250,12 +252,10 @@ void cbToCoNet_vMain(void)
 		}
 		if (sAppData.u8Command == E_TWPOWER_COMMAND_OFF) {
 			if (sAppData.u32SleepCountDown == 8) {
-				vfPrintf(&sSerStream, "Reset Start" LB);
-				vPortSetLo(PORT_RESET);
+				vDipPortOff(FALSE);
 			}
 			if (sAppData.u32SleepCountDown == 4) {
-				vfPrintf(&sSerStream, "Reset Stop" LB);
-				vPortSetHi(PORT_RESET);
+				vDipPortOff(TRUE);
 				sAppData.u8Command = E_TWPOWER_COMMAND_OFF_REPLY;
 			}
 		}
@@ -268,8 +268,8 @@ void cbToCoNet_vMain(void)
 			if ((sAppData.u32SleepCountDown % 250) == 0) {
 				vfPrintf(&sSerStream, "Auto Off: %d" LB, sAppData.u32SleepCountDown / 250);
 			}
-			if (sAppData.u32SleepCountDown < 10) {
-				vPortSetLo(PORT_RESET);
+			if (sAppData.u32SleepCountDown < 5) {
+				vDipPortOff(FALSE);
 			}
 		}
 	}
@@ -445,14 +445,14 @@ static void vInitHardware(int f_warm_start)
 	ToCoNet_vDebugLevel(0);
 
 	// IOs
-	vPortDisablePullup(PORT_RESET);
-	vPortDisablePullup(PORT_SET);
+	vPortDisablePullup(PORT_OFF);
+	vPortDisablePullup(PORT_ON);
 	vPortDisablePullup(PORT_LED);
-	vPortSetHi(PORT_RESET);
-	vPortSetHi(PORT_SET);
+	vPortSetHi(PORT_OFF);
+	vPortSetHi(PORT_ON);
 	vPortSetHi(PORT_LED);
-	vPortAsOutput(PORT_RESET);
-	vPortAsOutput(PORT_SET);
+	vPortAsOutput(PORT_OFF);
+	vPortAsOutput(PORT_ON);
 	vPortAsOutput(PORT_LED);
 	vPortAsInput(PORT_INPUT1);
 	vPortAsInput(PORT_INPUT2);
@@ -513,17 +513,13 @@ static void vHandleSerialInput(void)
 {
     // handle UART command
 	while (!SERIAL_bRxQueueEmpty(sSerPort.u8SerialPort)) {
-		int16 i16Char;
-
-		i16Char = SERIAL_i16RxChar(sSerPort.u8SerialPort);
-
-		vfPrintf(&sSerStream, "\n\r# [%c] --> ", i16Char);
-	    SERIAL_vFlush(sSerStream.u8Device);
+		int16 i16Char = SERIAL_i16RxChar(sSerPort.u8SerialPort);
 
 		if (i16Char == ':') {
 			sAppData.bCommandInput = TRUE;
 			sAppData.u32SleepCountDown = SLEEP_COUNT_KEYPRESSED;
-			vfPrintf(&sSerStream, "Enter Command [sSrRlL]");
+			vfPrintf(&sSerStream, "Enter Command :[sSrRlL] > ");
+		    SERIAL_vFlush(sSerStream.u8Device);
 		} else if (sAppData.bCommandInput) {
 			sAppData.bCommandInput = FALSE;
 			switch(i16Char) {
@@ -535,54 +531,46 @@ static void vHandleSerialInput(void)
 					if(u8DgbLvl > 5) u8DgbLvl = 0;
 					ToCoNet_vDebugLevel(u8DgbLvl);
 
-					vfPrintf(&sSerStream, "set NwkCode debug level to %d.", u8DgbLvl);
+					vfPrintf(&sSerStream, "set NwkCode debug level to %d." LB, u8DgbLvl);
 				}
 				break;
 
 			case 'a':
-				sAppData.u8Command = E_TWPOWER_COMMAND_AUTOOFF;
-				sAppData.u32SleepCountDown = AUTOOFF_COUNT;
-				vfPrintf(&sSerStream, LB "Auto Off Start");
+				vStartAutoOff();
 				break;
+
 			case 's':
-				vPortSetHi(PORT_SET);
-				vfPrintf(&sSerStream, LB "Set High PORT_SET.");
+				vDipPortOn(TRUE);
 				break;
 
 			case 'S':
-				vPortSetLo(PORT_SET);
-				vfPrintf(&sSerStream, LB "Set Low PORT_SET.");
+				vDipPortOn(FALSE);
 				break;
 
 			case 'r':
-				vPortSetHi(PORT_RESET);
-				vfPrintf(&sSerStream, LB "Set High PORT_RESET.");
+				vDipPortOff(TRUE);
 				break;
 
 			case 'R':
-				vPortSetLo(PORT_RESET);
-				vfPrintf(&sSerStream, LB "Set Low PORT_RESET.");
+				vDipPortOff(FALSE);
 				break;
 
 			case 'l':
-				vPortSetHi(PORT_LED);
-				vfPrintf(&sSerStream, LB "Set High PORT_LED.");
+				vDipPortLed(TRUE);
 				break;
 
 			case 'L':
-				vPortSetLo(PORT_LED);
-				vfPrintf(&sSerStream, LB "Set Low PORT_LED.");
+				vDipPortLed(FALSE);
 				break;
 
 			default:
-				vfPrintf(&sSerStream, "Invalid Command");
+				vfPrintf(&sSerStream, "Invalid Command: %c" LB, i16Char);
 				break;
 			}
 		} else {
-			vfPrintf(&sSerStream, "Invalid Command");
+			vfPrintf(&sSerStream, "Invalid Command: %c" LB, i16Char);
 		}
 
-		vfPrintf(&sSerStream, LB);
 	    SERIAL_vFlush(sSerStream.u8Device);
 	}
 }
@@ -654,7 +642,9 @@ static void vShowMessage(uint8 *buf, int size)
 static void vBroadcastStatus(void) {
 	tsTxDataApp tsTx;
 
-	vfPrintf(&sSerStream, "%d %d %d" LB, sAppData.ai16Volt, sAppData.ai16Adc1, sAppData.ai16Adc3);
+	vfPrintf(&sSerStream, "!VOLT=%d" LB, sAppData.ai16Volt);
+	vfPrintf(&sSerStream, "!ADC1=%d" LB, sAppData.ai16Adc1);
+	vfPrintf(&sSerStream, "!ADC3=%d" LB, sAppData.ai16Adc3);
 
 	memset(&tsTx, 0, sizeof(tsTxDataApp));
 
@@ -795,16 +785,89 @@ static void vProcessIncomingData(tsRxDataApp *pRx)
 		sAppData.u8Command = E_TWPOWER_COMMAND_OFF;
 		sAppData.u32SleepCountDown = 10;
 	} else if (!memcmp(cmd, TWPOWER_CMD_LED, TWPOWER_CMD_SIZE)) {
-		vfPrintf(&sSerStream, LB "Led Received" LB);
-		vPortSetLo(PORT_LED);
+		vDipPortLed(FALSE);
 		sAppData.u32SleepCountDown = 500;
 	} else if (!memcmp(cmd, TWPOWER_CMD_AUTOOFF, TWPOWER_CMD_SIZE)) {
-		sAppData.u8Command = E_TWPOWER_COMMAND_AUTOOFF;
-		sAppData.u32SleepCountDown = AUTOOFF_COUNT;
-		vfPrintf(&sSerStream, LB "Auto Off Start");
+		vStartAutoOff();
 	} else {
 		vfPrintf(&sSerStream, LB "Invalid Command: %s" LB, cmd);
 	}
+}
+
+/****************************************************************************
+ *
+ * NAME: vDipPortOn
+ *
+ * DESCRIPTION: ON端子を設定する
+ *
+ * RETURNS: None
+ *
+ ****************************************************************************/
+static void vDipPortOn(bool_t bHigh)
+{
+	if (bHigh) {
+		vPortSetHi(PORT_ON);
+		vfPrintf(&sSerStream, "!PORT_ON=H" LB);
+	} else {
+		vPortSetLo(PORT_ON);
+		vfPrintf(&sSerStream, "!PORT_ON=L" LB);
+	}
+}
+
+/****************************************************************************
+ *
+ * NAME: vDipPortOff
+ *
+ * DESCRIPTION: OFF端子を設定する
+ *
+ * RETURNS: None
+ *
+ ****************************************************************************/
+static void vDipPortOff(bool_t bHigh)
+{
+	if (bHigh) {
+		vPortSetHi(PORT_OFF);
+		vfPrintf(&sSerStream, "!PORT_OFF=H" LB);
+	} else {
+		vPortSetLo(PORT_OFF);
+		vfPrintf(&sSerStream, "!PORT_OFF=L" LB);
+	}
+}
+
+/****************************************************************************
+ *
+ * NAME: vDipPortLed
+ *
+ * DESCRIPTION: LED端子を設定する
+ *
+ * RETURNS: None
+ *
+ ****************************************************************************/
+static void vDipPortLed(bool_t bHigh)
+{
+	if (bHigh) {
+		vPortSetHi(PORT_LED);
+		vfPrintf(&sSerStream, "!PORT_LED=H" LB);
+	} else {
+		vPortSetLo(PORT_LED);
+		vfPrintf(&sSerStream, "!PORT_LED=L" LB);
+	}
+}
+
+/****************************************************************************
+ *
+ * NAME: vStartAutoOff
+ *
+ * DESCRIPTION: Auto Offを開始する
+ *
+ * RETURNS: None
+ *
+ ****************************************************************************/
+static void vStartAutoOff(void)
+{
+	vfPrintf(&sSerStream, "Auto Off Start" LB);
+	sAppData.u8Command = E_TWPOWER_COMMAND_AUTOOFF;
+	sAppData.u32SleepCountDown = AUTOOFF_COUNT;
 }
 
 /****************************************************************************/
