@@ -246,7 +246,6 @@ void cbToCoNet_vMain(void)
 			}
 		}
 		if (sAppData.u8Command == E_TWPOWER_COMMAND_ON_REPLY) {
-			vfPrintf(&sSerStream, "Send On Reply" LB);
 			vSendCommand(TWPOWER_CMD_ON_REPLY, TWPOWER_CMD_SIZE);
 			sAppData.u8Command = E_TWPOWER_COMMAND_IDLE;
 		}
@@ -260,7 +259,6 @@ void cbToCoNet_vMain(void)
 			}
 		}
 		if (sAppData.u8Command == E_TWPOWER_COMMAND_OFF_REPLY) {
-			vfPrintf(&sSerStream, "Send Off Reply" LB);
 			vSendCommand(TWPOWER_CMD_OFF_REPLY, TWPOWER_CMD_SIZE);
 			sAppData.u8Command = E_TWPOWER_COMMAND_IDLE;
 		}
@@ -342,7 +340,7 @@ void cbToCoNet_vRxEvent(tsRxDataApp *pRx) {
  * NOTES:
  ****************************************************************************/
 void cbToCoNet_vTxEvent(uint8 u8CbId, uint8 bStatus) {
-	vfPrintf(&sSerStream, LB "Send Done: %d" LB, bStatus & 0x01);
+	vfPrintf(&sSerStream, "Send Done: %d" LB, bStatus & 0x01);
 
 	return;
 }
@@ -386,7 +384,6 @@ void cbToCoNet_vHwEvent(uint32 u32DeviceId, uint32 u32ItemBitmap)
 					sAppData.ai16Adc1 = sAppData.sObjADC.ai16Result[TEH_ADC_IDX_ADC_1];
 					sAppData.ai16Adc3 = sAppData.sObjADC.ai16Result[TEH_ADC_IDX_ADC_3];
 					sAppData.u8AdcState = E_ADC_COMPLETE;
-					vfPrintf(&sSerStream, LB "ADC Read Complete." LB);
 				}
 				break;
 
@@ -463,8 +460,6 @@ static void vInitHardware(int f_warm_start)
 	vADC_Init(&sAppData.sObjADC, &sAppData.sADC, TRUE);
 	sAppData.sObjADC.u8SourceMask = TEH_ADC_SRC_VOLT | TEH_ADC_SRC_ADC_1 | TEH_ADC_SRC_ADC_3;
 	sAppData.u8AdcState = E_ADC_START;
-
-	vfPrintf(&sSerStream, LB "Initialize Hardware complete.");
 }
 
 /****************************************************************************
@@ -594,8 +589,11 @@ static void vProcessEvCore(tsEvent *pEv, teEvent eEvent, uint32 u32evarg) {
 			vfPrintf(&sSerStream, LB "Wake up by %s." LB,
 					bWakeupByButton ? "UART PORT" : "WAKE TIMER");
 	    } else {
-	    	vfPrintf(&sSerStream, LB "*** TWEPOWER %d.%02d-%d ***" LB, VERSION_MAIN, VERSION_SUB, VERSION_VAR);
-	    	vfPrintf(&sSerStream, "*** %08x ***" LB, ToCoNet_u32GetSerial());
+	    	vfPrintf(&sSerStream, LB "!NAME=TWEPOWER" LB);
+	    	vfPrintf(&sSerStream, "!MAINVER=%d" LB, VERSION_MAIN);
+	    	vfPrintf(&sSerStream, "!SUBVER=%02d" LB, VERSION_SUB);
+	    	vfPrintf(&sSerStream, "!BUILD=%d" LB, VERSION_VAR);
+	    	vfPrintf(&sSerStream, "!ID=%08x" LB, ToCoNet_u32GetSerial());
 	    }
 	}
 }
@@ -685,9 +683,9 @@ static void vBroadcastStatus(void) {
 	// 送信
 	ToCoNet_bMacTxReq(&tsTx);
 
-	vfPrintf(&sSerStream, LB "Send Broadcast(%d): <", tsTx.u8Len);
+	vfPrintf(&sSerStream, "#Send=", tsTx.u8Len);
 	vShowMessage(tsTx.auData, tsTx.u8Len);
-	vfPrintf(&sSerStream, ">" LB);
+	vfPrintf(&sSerStream, LB);
 	SERIAL_vFlush(sSerStream.u8Device);
 }
 
@@ -731,9 +729,9 @@ static void vSendCommand(char *buf, int size)
 	// 送信
 	ToCoNet_bMacTxReq(&tsTx);
 
-	vfPrintf(&sSerStream, LB "Send (%d): <", tsTx.u8Len);
+	vfPrintf(&sSerStream, "#Send=", tsTx.u8Len);
 	vShowMessage(tsTx.auData, tsTx.u8Len);
-	vfPrintf(&sSerStream, ">" LB);
+	vfPrintf(&sSerStream, LB);
 	SERIAL_vFlush(sSerStream.u8Device);
 }
 
@@ -777,11 +775,9 @@ static void vProcessIncomingData(tsRxDataApp *pRx)
 	cmd[TWPOWER_CMD_SIZE] = 0;
 
 	if (!memcmp(cmd, TWPOWER_CMD_ON, TWPOWER_CMD_SIZE)) {
-		vfPrintf(&sSerStream, LB "On Received" LB);
 		sAppData.u8Command = E_TWPOWER_COMMAND_ON;
 		sAppData.u32SleepCountDown = 10;
 	} else if (!memcmp(cmd, TWPOWER_CMD_OFF, TWPOWER_CMD_SIZE)) {
-		vfPrintf(&sSerStream, LB "Off Received" LB);
 		sAppData.u8Command = E_TWPOWER_COMMAND_OFF;
 		sAppData.u32SleepCountDown = 10;
 	} else if (!memcmp(cmd, TWPOWER_CMD_LED, TWPOWER_CMD_SIZE)) {
