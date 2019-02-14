@@ -218,6 +218,9 @@ void cbToCoNet_vMain(void)
 			if (sAppData.u8Command == E_TWPOWER_COMMAND_LED_SEND) {
 				vSendCommand(TWPOWER_CMD_LED, TWPOWER_CMD_SIZE);
 			}
+			if (sAppData.u8Command == E_TWPOWER_COMMAND_AUTOOFF_SEND) {
+				vSendCommand(TWPOWER_CMD_AUTOOFF, TWPOWER_CMD_SIZE);
+			}
 		}
 	}
 }
@@ -451,6 +454,11 @@ static void vHandleSerialInput(void)
 				vfPrintf(&sSerStream, "Led Request");
 				break;
 
+			case 'a':
+				sAppData.u8Command = E_TWPOWER_COMMAND_AUTOOFF_REQ;
+				vfPrintf(&sSerStream, "Auto Off Request");
+				break;
+
 			default:
 				vfPrintf(&sSerStream, "Invalid Command");
 				break;
@@ -601,6 +609,11 @@ static void vProcessIncomingData(tsRxDataApp *pRx)
 			sAppData.u8Command = E_TWPOWER_COMMAND_LED_SEND;
 			sAppData.u32CommandCount = 1;
 			vfPrintf(&sSerStream, LB "Led Send" LB);
+		}
+		if (sAppData.u8Command == E_TWPOWER_COMMAND_AUTOOFF_REQ) {
+			sAppData.u8Command = E_TWPOWER_COMMAND_AUTOOFF_SEND;
+			sAppData.u32CommandCount = 1;
+			vfPrintf(&sSerStream, LB "Auto Off Send" LB);
 		}
 	} else {
 		vfPrintf(&sSerStream, LB "Invalid Command: %s" LB, cmd);

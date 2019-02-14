@@ -35,6 +35,8 @@ typedef enum
 	E_TWPOWER_COMMAND_OFF_SEND,
 	E_TWPOWER_COMMAND_LED_REQ,
 	E_TWPOWER_COMMAND_LED_SEND,
+	E_TWPOWER_COMMAND_AUTOOFF_REQ,
+	E_TWPOWER_COMMAND_AUTOOFF_SEND,
 } teCommand_TWPOWER;
 
 /****************************************************************************/
